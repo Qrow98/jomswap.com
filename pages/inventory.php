@@ -2,11 +2,9 @@
 session_start(); 
 echo $_SESSION['ic'];
 echo $_SESSION['email'];
-
 require_once "../php/connect.php";
 
 if (isset($_POST['idBarangan']) && !empty(trim($_POST['idBarangan']))) {
-    $idBarangan = $_POST['idBarangan'];
     include '../php/deleteItem.php';
 }
 ?>
@@ -72,7 +70,7 @@ if ($result = mysqli_query($conn, $sql)) {
         echo "</table>";
         mysqli_free_result($result);
     } else {
-        echo "Tiada Barangan. Sila tambah barangan anda.";
+        echo "<br>Tiada Barangan. Sila tambah barangan anda.";
     }
 }
 mysqli_close($conn);

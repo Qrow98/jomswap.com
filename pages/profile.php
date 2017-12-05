@@ -147,12 +147,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <a href="../php/logout.php" id="logout">Log Keluar</a>
   <br>
   <h2><?php echo $nama; ?></h2>
+  <button class="btn btn-primary" id="btnEdit">Edit</button>
   <br>
   <img src="<?php echo $pic; ?>" style='max-width:50%;height:auto;'>
-  <button class="btn btn-primary" id="btnEdit">Edit</button>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
   <br>
   <div class="form-group upload hid">
+    <label>Gambar:</label>
     <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
   </div>
   <h3>Butiran Diri</h3>

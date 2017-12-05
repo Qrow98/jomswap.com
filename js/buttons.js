@@ -18,8 +18,12 @@ function afterLogin() {
 
 function isOwner() {
     document.getElementById("btnEdit").style.display = "";
+    document.getElementById("btnDelete").style.display = "";
+    document.getElementById("btnExchange").style.display = "none";
 }
 
 function notOwner() {
     document.getElementById("btnEdit").style.display = "none";
+    document.getElementById("btnDelete").style.display = "none";
+    document.getElementById("btnExchange").style.display = "";
 }

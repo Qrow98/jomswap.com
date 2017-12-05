@@ -74,8 +74,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
-    // Close connection
-    mysqli_close($conn);
+
+}
+$ic = $_SESSION['ic'];
+// $num = 1;
+$sql = "SELECT * FROM `barangan` WHERE noIC = '$ic'";
+if ($result = mysqli_query($conn, $sql)) {
+    if (mysqli_num_rows($result) > 0) {
+        $options = "";
+        // $options1 = "<option>$ic</option>";
+        while ($row = mysqli_fetch_array($result)) {
+            $options = $options."<option value='$row[0]'>$row[1]</option>";
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -87,9 +98,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/main.css">
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="../js/hiding.js"></script>
   <script src="../js/buttons.js"></script>
-  </head>
+  <script src="../js/deleteItem.js"></script>
+</head>
 <body>
 <div class="wrapper">
   <a href="../index.php"><h1 style="font-size:7vw">JomSwap!</h1></a>
@@ -103,16 +116,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <a href="../php/logout.php" id="logout">Log Keluar</a>
   <br>
   <h2><?php echo $namaBarangan; ?></h2>
+  <button class="btn btn-primary" id="btnEdit">Edit</button>
+  <div id="btnDelete">
+    <form action="../php/deleteItem.php" method='post'>
+      <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">
+      <input type="submit" class="btn btn-primary del" value="Padam">
+    </form>
+  </div>
   <br>
   <img src="<?php echo $gambarBarangan; ?>" style='max-width:50%;height:auto;'>
-  <button class="btn btn-primary" id="btnEdit">Edit</button>
   <br>
   <br>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
   <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">
     <div class="form-group upload hid">
+      <label>Gambar:</label>
       <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
     </div>
+    <br>
     <div class="form-group <?php echo (!empty($butiranError)) ? 'has-error' : ''; ?>">
       <label>Butiran:</label>
       <textarea name="butiran" class="form-control" cols="30" rows="5" readonly><?php echo $butiranBarangan; ?></textarea>
@@ -131,9 +152,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <input type="" name="pemilik" class="form-control" value="<?php echo $noIC; ?>" readonly>
     </div>
     <div class="form-group hid">
-    <input type="submit" class="btn btn-primary" value="Hantar">
-  </div>
+      <input type="submit" class="btn btn-primary" value="Hantar">
+    </div>
   </form>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btnExchange">Tukar</button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Pilih barangan untuk ditukar</h4>
+        </div>
+        <div class="modal-body">
+          <form action="../php/trade.php" method="get">
+          <select name="idBarangan">
+            <?php echo $options;?>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Tukar" class="btn btn-primary del">        
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <?php
 require '../php/hideButton.php';
@@ -154,7 +199,8 @@ if (mysqli_num_rows($result) > 0) {
     echo "<br>";
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
-
+// Close connection
+mysqli_close($conn);
 ?>
 </body>
 </html>

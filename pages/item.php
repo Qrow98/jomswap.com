@@ -30,6 +30,8 @@ $butiranError = "";
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    $idBarangan = $_POST['idBarangan'];
+
     // Validate butiran
     if (empty(trim($_POST["butiran"]))) {
         $butiranError = "Sila masukkan butiran barangan anda.";
@@ -43,12 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check input errors before inserting in database
     if ($uploadOk == 1 && empty($butiranError)) {
 
-        $sql = "UPDATE pelajar SET butiranBarangan = '$butiran', profilePicture = '$target_file' WHERE idBarangan = '$idBarangan'";
+        $sql = "UPDATE barangan SET butiranBarangan = '$butiran', gambarBarangan = '$target_file' WHERE idBarangan = '$idBarangan'";
 
         if (mysqli_query($conn, $sql)) {
             echo "<script>",
             "alert('Barang anda telah dikemaskini.');",
-            "window.location.href='../index.php';",
+            "window.location.href='item.php?idBarangan=$idBarangan';",
             "</script>";
         } else {
             echo "Ralat dikesan. Sila cuba sebentar lagi.";
@@ -62,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_query($conn, $sql)) {
             echo "<script>",
             "alert('Barang anda telah dikemaskini.');",
-            "window.location.href='../index.php';",
+            "window.location.href='item.php?idBarangan=$idBarangan';",
             "</script>";
         } else {
             echo "Ralat dikesan. Sila cuba sebentar lagi.";
@@ -72,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Close connection
-    mysqli_close($link);
+    mysqli_close($conn);
 }
 ?>
 <!DOCTYPE html>
@@ -106,12 +108,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <br>
   <br>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-  <div class="form-group upload hid">
-    <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
-  </div>
-    <div class="form-group">
-      <label>Butiran:</label>
+  <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">
+    <div class="form-group upload hid">
+      <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+    </div>
+    <div class="form-group <?php echo (!empty($butiranError)) ? 'has-error' : ''; ?>">
+      <label>Butiran:<sup class="hid">*</sup></label>
       <textarea name="butiran" class="form-control" cols="30" rows="5" readonly><?php echo $butiranBarangan; ?></textarea>
+      <span class="help-block"><?php echo $butiranError; ?></span>
     </div>
     <div class="form-group">
       <label>Kategori:</label>

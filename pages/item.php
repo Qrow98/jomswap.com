@@ -172,9 +172,10 @@ if ($result = mysqli_query($conn, $sql)) {
             <?php echo $options;?>
             <option disabled selected value style="display:none"> -- pilih kategori -- </option>
           </select>
+          <p>Tiada barangan? <a href="itemAdd.php">Tambah di sini!</a></p>
         </div>
         <div class="modal-footer">
-          <input type="submit" value="Tukar" class="btn btn-primary tukar">        
+          <input type="submit" value="Tukar" class="btn btn-primary tukar">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
           </form>
         </div>

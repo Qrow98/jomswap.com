@@ -24,7 +24,7 @@ echo $_SESSION['email'];
   <br>
   <a href="signup.php" id="signup">Daftar</a>
   <a href="login.php" id="login">Log Masuk</a>
-  <a href="currentExchange.php" id="trade">Pertukaran</a>
+  <a href="exchange.php" id="trade">Pertukaran</a>
   <a href="inventory.php" id="inventory">Inventori</a>
   <a href="../php/logout.php" id="logout">Log Keluar</a>
   <br>
@@ -36,13 +36,13 @@ $ic = $_SESSION['ic'];
 
 $num = 1;
 $sql = "SELECT * 
-FROM pertukaran p LEFT JOIN barangan b ON (p.idBarangan = b.idBarangan) LEFT JOIN pelajar pl ON (b.noIC = pl.noIC)";
+FROM pertukaran LEFT JOIN barangan ON pertukaran.idBarangan = barangan.idBarangan WHERE noIC=$ic";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
         echo "<table border=1>";
             echo "<tr>";
                 echo "<th>Bil.</th>";
-                echo "<th>Gambar</th>";
+                // echo "<th>Gambar</th>";
                 echo "<th>Barang 1</th>";
                 echo "<th>Barang 2</th>";
                 echo "<th>Tarikh</th>";
@@ -52,8 +52,8 @@ if ($result = mysqli_query($conn, $sql)) {
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
                 echo "<td>" . $num . ".</td>";
-                echo "<td><img src='" . $row['gambarBarangan'] . "' style='max-width:65%;height:auto;'></td>";
-                echo "<td>" . $row['idBarangan'] . "</td>";
+                // echo "<td><img src='" . $row['gambarBarangan'] . "' style='max-width:65%;height:auto;'></td>";
+                echo "<td>" . $row['namaBarangan'] . "</td>";
                 echo "<td>" . $row['idBarangan2'] . "</td>";
                 echo "<td>" . $row['tarikhPertukaran'] . "</td>";
                 echo "<td>" . $row['statusPertukaran'] . "</td>";
@@ -64,7 +64,8 @@ if ($result = mysqli_query($conn, $sql)) {
         echo "</table>";
         mysqli_free_result($result);
     } else {
-        echo "Ralat dikesan. Sila cuba sebentar lagi.";
+        echo "<br>";
+        echo "Tiada pertukaran.";
     }
 }
 mysqli_close($conn);

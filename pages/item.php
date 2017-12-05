@@ -4,6 +4,7 @@ echo $_SESSION['ic'];
 echo $_SESSION['email'];
 
 require_once '../php/connect.php';
+
 if (isset($_GET['idBarangan']) && !empty(trim($_GET['idBarangan']))) {
     $idBarangan = $_GET['idBarangan'];
     $sql = "SELECT *
@@ -21,6 +22,7 @@ if (isset($_GET['idBarangan']) && !empty(trim($_GET['idBarangan']))) {
             mysqli_free_result($result);
         } else {
             echo "Ralat dikesan. Sila cuba sebentar lagi.";
+            echo mysqli_error($conn);
         }
     }
 }
@@ -72,7 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
-
     // Close connection
     mysqli_close($conn);
 }
@@ -113,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
     </div>
     <div class="form-group <?php echo (!empty($butiranError)) ? 'has-error' : ''; ?>">
-      <label>Butiran:<sup class="hid">*</sup></label>
+      <label>Butiran:</label>
       <textarea name="butiran" class="form-control" cols="30" rows="5" readonly><?php echo $butiranBarangan; ?></textarea>
       <span class="help-block"><?php echo $butiranError; ?></span>
     </div>
@@ -134,6 +135,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
   </form>
 </div>
-<?php require '../php/hideButton.php'; ?>
+<?php
+require '../php/hideButton.php';
+$sql = "SELECT noIC FROM barangan WHERE idBarangan = '$idBarangan'";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $tempIC = $row['noIC'];
+    }
+    if ($_SESSION['ic'] == $tempIC) {
+        echo "<script>","isOwner();","</script>";
+    } else {
+        echo "<script>","notOwner();","</script>";
+    }
+} else {
+    echo "Ralat dikesan. Sila cuba sebentar lagi.";
+    echo "<br>";
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+?>
 </body>
 </html>

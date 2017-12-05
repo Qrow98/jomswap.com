@@ -158,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <h3>Butiran Diri</h3>
  
     <div class="form-group hid <?php echo (!empty($namaError)) ? 'has-error' : ''; ?>">
-      <label>Nama:<sup>*</sup></label>
+      <label>Nama:</label>
       <input type="text" name="name" class="form-control" value="<?php echo $nama; ?>">
       <span class="help-block"><?php echo $namaError; ?></span>
     </div>
@@ -174,13 +174,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <div class="form-group <?php echo (!empty($noTelError)) ? 'has-error' : ''; ?>">
-      <label>No. Telefon:<sup class="hid">*</sup></label>
+      <label>No. Telefon:</label>
       <input type="text" name="noTel" class="form-control" value="<?php echo $noTel; ?>" readonly>
       <span class="help-block"><?php echo $noTelError; ?></span>
     </div>
 
     <div class="form-group <?php echo (!empty($alamatError)) ? 'has-error' : ''; ?>">
-      <label>Alamat:<sup class="hid">*</sup></label>
+      <label>Alamat:</label>
       <textarea name="alamat" class="form-control" cols="30" rows="5" readonly><?php echo $alamat; ?></textarea>
       <span class="help-block"><?php echo $alamatError; ?></span>
     </div>
@@ -197,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-      <label>Kata laluan:<sup class="hid">*</sup></label>
+      <label>Kata laluan:</label>
       <input type="text" name="password" class="form-control" value="<?php echo $pwd; ?>" readonly="readonly">
       <span class="help-block"><?php echo $password_err; ?></span>
     </div>

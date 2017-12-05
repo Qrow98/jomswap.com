@@ -25,69 +25,45 @@ if (isset($_GET['idBarangan']) && !empty(trim($_GET['idBarangan']))) {
     }
 }
 
-$noTelError = $alamatError = $password_err = "";
+$butiranError = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Validate no telefon
-    if (empty(trim($_POST["noTel"]))) {
-        $noTelError = "Sila masukkan No. Telefon anda.";
+    // Validate butiran
+    if (empty(trim($_POST["butiran"]))) {
+        $butiranError = "Sila masukkan butiran barangan anda.";
     } else {
-        $noTel = trim($_POST["noTel"]);
-    }
-
-    // Validate alamat
-    if (empty(trim($_POST["alamat"]))) {
-        $alamatError = "Sila masukkan Alamat anda.";
-    } else {
-        $alamat = trim($_POST["alamat"]);
-    }
-
-    // Validate password
-    if (empty(trim($_POST['password']))) {
-        $password_err = "Sila masukkan kata laluan anda.";     
-    } elseif (strlen(trim($_POST['password'])) < 6) {
-        $password_err = "Kata laluan mesti mempunyai sekurang-kurangnya 6 huruf.";
-    } else {
-        $password = trim($_POST['password']);
+        $butiran = trim($_POST["butiran"]);
     }
 
     // Profile picture
     include '../php/upload.php';
 
     // Check input errors before inserting in database
-    if ($uploadOk == 1 && empty($noTelError) && empty($alamatError) && empty($confirm_password_err) && empty($password_err)) {
+    if ($uploadOk == 1 && empty($butiranError)) {
 
-        $sql = "UPDATE pelajar SET noTel = $noTel, alamat = '$alamat', profilePicture = '$target_file' WHERE noIC = $ic";
+        $sql = "UPDATE pelajar SET butiranBarangan = '$butiran', profilePicture = '$target_file' WHERE idBarangan = '$idBarangan'";
 
         if (mysqli_query($conn, $sql)) {
-            $sql = "UPDATE logMasuk SET password = '$password' WHERE email = '$email'";
-            if (mysqli_query($conn, $sql)) {
-                header("location: profile.php");
-            } else {
-                echo "Ralat dikesan. Sila cuba sebentar lagi.";
-                echo "<br>";
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);   
-            }         
+            echo "<script>",
+            "alert('Barang anda telah dikemaskini.');",
+            "window.location.href='../index.php';",
+            "</script>";
         } else {
             echo "Ralat dikesan. Sila cuba sebentar lagi.";
             echo "<br>";
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);            
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
-    } elseif (empty($noTelError) && empty($alamatError) && empty($confirm_password_err) && empty($password_err)) {
+    } elseif (empty($butiranError)) {
 
-        $sql = "UPDATE pelajar SET noTel = $noTel, alamat = '$alamat' WHERE noIC = $ic";
+        $sql = "UPDATE barangan SET butiranBarangan = '$butiran' WHERE idBarangan = '$idBarangan'";
 
         if (mysqli_query($conn, $sql)) {
-            $sql = "UPDATE logMasuk SET password = '$password' WHERE email = '$email'";
-            if (mysqli_query($conn, $sql)) {
-                header("location: profile.php");
-            } else {
-                echo "Ralat dikesan. Sila cuba sebentar lagi.";
-                echo "<br>";
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-            }         
+            echo "<script>",
+            "alert('Barang anda telah dikemaskini.');",
+            "window.location.href='../index.php';",
+            "</script>";
         } else {
             echo "Ralat dikesan. Sila cuba sebentar lagi.";
             echo "<br>";
@@ -127,7 +103,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <br>
   <img src="<?php echo $gambarBarangan; ?>" style='max-width:50%;height:auto;'>
   <button class="btn btn-primary" id="btnEdit">Edit</button>
-  <form action="tukar.php" method="post">
+  <br>
+  <br>
+  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+  <div class="form-group upload hid">
+    <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+  </div>
     <div class="form-group">
       <label>Butiran:</label>
       <textarea name="butiran" class="form-control" cols="30" rows="5" readonly><?php echo $butiranBarangan; ?></textarea>

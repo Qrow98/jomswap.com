@@ -101,7 +101,7 @@ if ($result = mysqli_query($conn, $sql)) {
   <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="../js/hiding.js"></script>
   <script src="../js/buttons.js"></script>
-  <script src="../js/deleteItem.js"></script>
+  <script src="../js/popup.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -167,12 +167,14 @@ if ($result = mysqli_query($conn, $sql)) {
         </div>
         <div class="modal-body">
           <form action="../php/trade.php" method="get">
-          <select name="idBarangan">
+          <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">          
+          <select name="idBarangan2">
             <?php echo $options;?>
+            <option disabled selected value style="display:none"> -- pilih kategori -- </option>
           </select>
         </div>
         <div class="modal-footer">
-          <input type="submit" value="Tukar" class="btn btn-primary del">        
+          <input type="submit" value="Tukar" class="btn btn-primary tukar">        
           <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
           </form>
         </div>

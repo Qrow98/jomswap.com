@@ -18,7 +18,7 @@ if (isset($_POST['idBarangan']) && !empty(trim($_POST['idBarangan']))) {
   <link rel="stylesheet" href="../css/main.css">
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
   <script src="../js/buttons.js"></script>
-  <script src="../js/deleteItem.js"></script>
+  <script src="../js/popup.js"></script>
   </head>
 <body>
 <div class="wrapper">

@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Check if email exists, if yes then verify password
                 if (mysqli_stmt_num_rows($stmt) == 1) {
 
-                    $sql1 = "SELECT password, noIC FROM logMasuk WHERE email = '$email'";
+                    $sql1 = "SELECT password, noIC FROM logMasuk WHERE email = '$email' AND password = '$password'";
 
                     if ($result = mysqli_query($conn, $sql1)) {
                         if (mysqli_num_rows($result) > 0) {

@@ -47,9 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         VALUES ('$nama', '$butiran', '$kategori', '$tarikh', '$target_file', '$ic')";
 
         if (mysqli_query($conn, $sql)) {
-            header("location: ../index.php");
+            echo "<script>",
+            "alert('Barang anda telah ditambah.');",
+            "window.location.href='inventory.php';",
+            "</script>";
         } else {
-            echo "Ralat dikesan. Sila cuba sebentar lagi.";
+            echo "<script>","alert('Ralat dikesan. Sila cuba sebentar lagi.');","</script>";
             echo "<br>";
             echo mysqli_error($conn);
         }

@@ -49,7 +49,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE pelajar SET namaPelajar = '$nama', jantina = '$gender', noTel = '$noTel', alamat = '$alamat', profilePicture = '$target_file' WHERE noIC = '$ic'";
 
         if (mysqli_query($conn, $sql)) {
-            header("location: ../index.php");
+            echo "<script>",
+            "alert('Pendaftaran berjaya!');",
+            "window.location.href='../index.php';",
+            "</script>";
         } else {
             echo "Ralat dikesan. Sila cuba sebentar lagi.";
             echo "<br>";
@@ -86,8 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       
       <div class="form-group <?php echo (!empty($genderError)) ? 'has-error' : ''; ?>">
         <label>Jantina:<sup>*</sup></label>
-        <input type="radio" name="gender" value="lelaki">Lelaki
-        <input type="radio" name="gender" value="perempuan">Perempuan
+        <input type="radio" name="gender" value="lelaki"> Lelaki
+        <input type="radio" name="gender" value="perempuan"> Perempuan
         <span class="help-block"><?php echo $genderError;?></span>
       </div>
 

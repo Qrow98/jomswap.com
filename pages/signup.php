@@ -114,6 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Redirect to login page
                 $_SESSION['ic'] = $ic;
                 $_SESSION['user'] = $email;
+                $_SESSION['email'] = $email;
                 header("location: signup1.php");
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -124,43 +125,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Ralat dikesan. Sila cuba sebentar lagi.";
         }
     }
-        // if ($stmt = mysqli_prepare($conn, $sql)) {
-        //     // Bind variables to the prepared statement as parameters
-        //     mysqli_stmt_bind_param($stmt, "sss", $param_email, $param_password, $param_ic);
-            
-        //     // Set parameters
-        //     $param_email = $email;
-        //     $param_password = $password;
-        //     $param_ic = $ic;
-            
-        //     // Attempt to execute the prepared statement
-        //     if (mysqli_stmt_execute($stmt)) {
-        //         // Prepare an insert statement
-            //     $sql = "INSERT INTO pelajar (noIC, tarikhDaftar)
-            //     VALUES ('$ic', '$tarikh')";
-
-            //     if (mysqli_query($conn, $sql)) {
-            //         // Redirect to login page
-            //         $_SESSION['ic'] = $ic;
-            //         $_SESSION['email'] = $email;
-            //         header("location: signup1.php");
-            //     } else {
-            //         echo "Ralat dikesan. Sila cuba sebentar lagi.";
-            //     }
-            // } else {
-        //         echo "test";
-                
-        //         echo "Ralat dikesan. Sila cuba sebentar lagi.";
-        //     }
-        // }
-
-        // Close statement
-    //     mysqli_stmt_close($stmt);
-        
-    // }
-    
-    // // Close connection
-    // mysqli_close($link);
 }
 ?>
  

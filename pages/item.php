@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "Ralat dikesan. Sila cuba sebentar lagi.";
                 echo "<br>";
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);   
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }         
         } else {
             echo "Ralat dikesan. Sila cuba sebentar lagi.";
@@ -134,19 +134,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <div class="form-group">
       <label>Kategori:</label>
-      <input type="text" name="kategori" class="form-control" value="<?php echo $kategoriBarangan; ?>" readonly>
+      <input type="" name="kategori" class="form-control" value="<?php echo $kategoriBarangan; ?>" readonly>
     </div>
     <div class="form-group">
       <label>Tarikh Muat Naik:</label>
-      <input type="text" name="tarikh" class="form-control" value="<?php echo $tarikhMuatNaik; ?>" readonly>
+      <input type="" name="tarikh" class="form-control" value="<?php echo $tarikhMuatNaik; ?>" readonly>
     </div>
     <div class="form-group">
       <label>Pemilik:</label>
-      <input type="text" name="pemilik" class="form-control" value="<?php echo $noIC; ?>" readonly>
+      <input type="" name="pemilik" class="form-control" value="<?php echo $noIC; ?>" readonly>
     </div>
-    <div class="form-group">
-      <input type="submit" class="btn btn-primary" value="Tukar">
-    </div>
+    <div class="form-group hid">
+    <input type="submit" class="btn btn-primary" value="Hantar">
+  </div>
   </form>
 </div>
 <?php require '../php/hideButton.php'; ?>

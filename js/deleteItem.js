@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $(".del").click(function(){
-        if (!confirm("Do you want to delete")){
+        if (!confirm("Adakah anda pasti untuk memadam barang ini?")){
             return false;
         }
     });

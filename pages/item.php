@@ -118,7 +118,7 @@ if ($result = mysqli_query($conn, $sql)) {
   <h2><?php echo $namaBarangan; ?></h2>
   <button class="btn btn-primary" id="btnEdit">Edit</button>
   <div id="btnDelete">
-    <form action="../php/deleteItem.php" method='post'>
+    <form action="../php/deleteitem.php" method='post'>
       <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">
       <input type="submit" class="btn btn-primary del" value="Padam">
     </form>
@@ -167,12 +167,12 @@ if ($result = mysqli_query($conn, $sql)) {
         </div>
         <div class="modal-body">
           <form action="../php/trade.php" method="post">
-          <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">
-          <select name="idBarangan2" required>
+          <input type="hidden" name="idBaranganOwner" value="<?php echo $idBarangan; ?>">
+          <select name="idBaranganRequester" required>
             <?php echo $options;?>
             <option disabled selected value style="display:none"> -- pilih kategori -- </option>
           </select>
-          <p>Tiada barangan? <a href="itemAdd.php">Tambah di sini!</a></p>
+          <p>Tiada barangan? <a href="additem.php">Tambah di sini!</a></p>
         </div>
         <div class="modal-footer">
           <input type="submit" value="Tukar" class="btn btn-primary tukar">

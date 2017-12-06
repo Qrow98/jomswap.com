@@ -32,7 +32,7 @@ if (isset($_POST['idBarangan']) && !empty(trim($_POST['idBarangan']))) {
   <a href="inventory.php" id="inventory">Inventori</a>
   <a href="../php/logout.php" id="logout">Log Keluar</a>
   <br>
-  <a href="itemAdd.php" id="additems">Tambah Barang</a>
+  <a href="additem.php" id="additems">Tambah Barang</a>
 <?php
 $ic = $_SESSION['ic'];
 $num = 1;
@@ -75,7 +75,7 @@ if ($result = mysqli_query($conn, $sql)) {
 }
 mysqli_close($conn);
 
-require '../php/hideButton.php';
+require '../php/hidebutton.php';
 ?>
 </div>
 </body>

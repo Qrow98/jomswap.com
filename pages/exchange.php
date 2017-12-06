@@ -35,7 +35,10 @@ require_once '../php/connect.php';
 $ic = $_SESSION['ic'];
 
 $num = 1;
-$sql = "SELECT * FROM pertukaran LEFT JOIN barangan ON pertukaran.idBarangan = barangan.idBarangan WHERE noIC=$ic";
+// $sql = "SELECT * FROM pertukaran LEFT JOIN barangan ON pertukaran.idBaranganOwner = barangan.idBarangan WHERE noIC=$ic";
+$sql = "SELECT * FROM pertukaran p
+FULL OUTER JOIN barangan b1 ON (p.idBaranganOwner = b1.idBarangan)
+FULL OUTER JOIN barangan b2 ON (t.idBaranganRequester = b2.idBarangan)";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
         echo "<table border=1>";
@@ -53,7 +56,7 @@ if ($result = mysqli_query($conn, $sql)) {
                 echo "<td>" . $num . ".</td>";
                 // echo "<td><img src='" . $row['gambarBarangan'] . "' style='max-width:50%;height:auto;'></td>";
                 echo "<td>" . $row['namaBarangan'] . "</td>";
-                echo "<td>" . $row['idBarangan2'] . "</td>";
+                echo "<td>" . $row['idBaranganRequester'] . "</td>";
                 echo "<td>" . $row['tarikhPertukaran'] . "</td>";
                 echo "<td>" . $row['statusPertukaran'] . "</td>";
                 echo "<td><a href='item.php?idBarangan=" . $row['idBarangan'] . "'><button class='btn btn-primary'>LIHAT</button></a></td>";
@@ -70,6 +73,6 @@ if ($result = mysqli_query($conn, $sql)) {
 mysqli_close($conn);
 ?>
 </div>
-<?php require '../php/hideButton.php'; ?>
+<?php require '../php/hidebutton.php'; ?>
 </body>
 </html>

@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <a href="signup.php" id="signup">Daftar</a>
   <a href="login.php" id="login">Log Masuk</a>
   <a href="exchange.php" id="trade">Pertukaran</a>
-  <a href="itemMine.php" id="inventory">Inventori</a>
+  <a href="inventory.php" id="inventory">Inventori</a>
   <a href="../php/logout.php" id="logout">Log Keluar</a>
   <br>
   <h2>Tambah Barangan</h2>
@@ -129,6 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   </form>
 </div>
-<?php require '../php/hideButton.php'; ?>
+<?php require '../php/hidebutton.php'; ?>
 </body>
 </html>

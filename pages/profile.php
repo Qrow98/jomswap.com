@@ -209,6 +209,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
   </form>
 </div>
-<?php require '../php/hideButton.php'; ?>
+<?php require '../php/hidebutton.php'; ?>
 </body>
 </html>

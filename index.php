@@ -22,7 +22,7 @@
   <a href="php/logout.php" id="logout">Log Keluar</a>
   <br>
   <br>
-  <a href="pages/itemAdd.php" id="additems">Tambah Barang</a>
+  <a href="pages/additem.php" id="additems">Tambah Barang</a>
   <a href="pages/profile.php"><?php echo $_SESSION['email']; ?></a>
 
 <?php
@@ -65,7 +65,7 @@ if ($result = mysqli_query($conn, $sql)) {
 }
 mysqli_close($conn);
 
-require 'php/hideButton.php';
+require 'php/hidebutton.php';
 ?>
 </div>
 </body>

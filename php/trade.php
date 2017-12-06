@@ -5,10 +5,12 @@ echo $_SESSION['email'];
 
 require_once '../php/connect.php';
 
-if (isset($_POST['idBarangan']) && !empty(trim($_POST['idBarangan'])) && isset($_POST['idBarangan2']) && !empty(trim($_POST['idBarangan2']))) {
+if (isset($_POST['idBaranganOwner']) && !empty(trim($_POST['idBaranganOwner'])) 
+    && isset($_POST['idBaranganRequester']) && !empty(trim($_POST['idBaranganRequester']))
+) {
 
-    $idBarangan = $_POST['idBarangan'];
-    $idBarangan2 = $_POST['idBarangan2'];
+    $idBaranganOwner = $_POST['idBaranganOwner'];
+    $idBaranganRequester = $_POST['idBaranganRequester'];
 
     $status = "menunggu";
 
@@ -17,8 +19,8 @@ if (isset($_POST['idBarangan']) && !empty(trim($_POST['idBarangan'])) && isset($
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $masa = date("h:i:s");
 
-    $sql = "INSERT INTO pertukaran (tarikhPertukaran, masaPertukaran, statusPertukaran, idBarangan, idBarangan2)
-    VALUES ('$tarikh', '$masa', '$status', '$idBarangan', '$idBarangan2')";
+    $sql = "INSERT INTO pertukaran (tarikhPertukaran, masaPertukaran, statusPertukaran, idBaranganOwner, idBaranganRequester)
+    VALUES ('$tarikh', '$masa', '$status', '$idBaranganOwner', '$idBaranganRequester')";
     if (mysqli_query($conn, $sql)) {
         echo "<script>",
         "alert('Permintaan anda telah berjaya dihantar.');",

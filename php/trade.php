@@ -5,10 +5,10 @@ echo $_SESSION['email'];
 
 require_once '../php/connect.php';
 
-if (isset($_GET['idBarangan']) && !empty(trim($_GET['idBarangan']))) {
+if (isset($_POST['idBarangan']) && !empty(trim($_POST['idBarangan'])) && isset($_POST['idBarangan2']) && !empty(trim($_POST['idBarangan2']))) {
 
-    $idBarangan = $_GET['idBarangan'];
-    $idBarangan2 = $_GET['idBarangan2'];
+    $idBarangan = $_POST['idBarangan'];
+    $idBarangan2 = $_POST['idBarangan2'];
 
     $status = "menunggu";
 

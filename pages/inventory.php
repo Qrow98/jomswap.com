@@ -52,7 +52,7 @@ if ($result = mysqli_query($conn, $sql)) {
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
                 echo "<td>" . $num . ".</td>";
-                echo "<td><img src='" . $row['gambarBarangan'] . "' style='max-width:65%;height:auto;'></td>";
+                echo "<td><img src='" . $row['gambarBarangan'] . "' style='max-width:50%;height:auto;'></td>";
                 echo "<td>" . $row['namaBarangan'] . "</td>";
                 echo "<td>" . $row['butiranBarangan'] . "</td>";
                 echo "<td>" . $row['kategoriBarangan'] . "</td>";

@@ -48,7 +48,7 @@ if ($result = mysqli_query($conn, $sql)) {
                 echo "<td>" . $num . ".</td>";
                 $dir = $row['gambarBarangan'];
                 $dir = preg_replace('$^../$', '', $dir);
-                echo "<td><img src='" . $dir . "' style='max-width:65%;height:auto;'></td>";
+                echo "<td><img src='" . $dir . "' style='max-width:50%;height:auto;'></td>";
                 echo "<td>" . $row['namaBarangan'] . "</td>";
                 echo "<td>" . $row['butiranBarangan'] . "</td>";
                 echo "<td>" . $row['kategoriBarangan'] . "</td>";

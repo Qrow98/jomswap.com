@@ -124,7 +124,7 @@ if ($result = mysqli_query($conn, $sql)) {
     </form>
   </div>
   <br>
-  <img src="<?php echo $gambarBarangan; ?>" style='max-width:50%;height:auto;'>
+  <img src="<?php echo $gambarBarangan; ?>" style='max-width:40%;height:auto;'>
   <br>
   <br>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
@@ -166,9 +166,9 @@ if ($result = mysqli_query($conn, $sql)) {
           <h4 class="modal-title">Pilih barangan untuk ditukar</h4>
         </div>
         <div class="modal-body">
-          <form action="../php/trade.php" method="get">
-          <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">          
-          <select name="idBarangan2">
+          <form action="../php/trade.php" method="post">
+          <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">
+          <select name="idBarangan2" required>
             <?php echo $options;?>
             <option disabled selected value style="display:none"> -- pilih kategori -- </option>
           </select>

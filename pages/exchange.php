@@ -31,14 +31,19 @@ echo $_SESSION['email'];
   <img src="<?php echo $gambarBarangan; ?>" style='max-width:50%;height:auto;'>
   <h1>Pertukaran Semasa</h1>
 <?php
-require_once '../php/connect.php';
 $ic = $_SESSION['ic'];
 
 $num = 1;
 // $sql = "SELECT * FROM pertukaran LEFT JOIN barangan ON pertukaran.idBaranganOwner = barangan.idBarangan WHERE noIC=$ic";
-$sql = "SELECT * FROM pertukaran p
-FULL OUTER JOIN barangan b1 ON (p.idBaranganOwner = b1.idBarangan)
-FULL OUTER JOIN barangan b2 ON (t.idBaranganRequester = b2.idBarangan)";
+// $sql = "SELECT * FROM pertukaran p
+// JOIN barangan b1 ON (p.idBaranganOwner = b1.idBarangan)
+// JOIN barangan b2 ON (t.idBaranganRequester = b2.idBarangan)";
+$sql = "SELECT *
+FROM pertukaran t
+JOIN barangan t1 ON t1.idBarangan = t.idBaranganOwner LEFT JOIN pelajar t3 ON t3.noIC = t1.noIC
+JOIN barangan t2 ON t2.idBarangan = t.idBaranganRequester
+WHERE t1.noIC = '$ic' OR t2.noIC = '$ic'";
+// echo "<br>" . $sql . "<br>";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
         echo "<table border=1>";
@@ -52,18 +57,19 @@ if ($result = mysqli_query($conn, $sql)) {
                 echo "<th>Action</th>";
             echo "</tr>";
         while ($row = mysqli_fetch_array($result)) {
+            // $row[7] = 'is namaBarangan';
             echo "<tr>";
                 echo "<td>" . $num . ".</td>";
                 // echo "<td><img src='" . $row['gambarBarangan'] . "' style='max-width:50%;height:auto;'></td>";
                 echo "<td>" . $row['namaBarangan'] . "</td>";
-                echo "<td>" . $row['idBaranganRequester'] . "</td>";
+                echo "<td>" . $row[7] . "</td>";
                 echo "<td>" . $row['tarikhPertukaran'] . "</td>";
                 echo "<td>" . $row['statusPertukaran'] . "</td>";
                 echo "<td><a href='item.php?idBarangan=" . $row['idBarangan'] . "'><button class='btn btn-primary'>LIHAT</button></a></td>";
             echo "</tr>";
             $num++;
         }
-        echo "</table>";
+        // echo "</table>";
         mysqli_free_result($result);
     } else {
         echo "<br>";

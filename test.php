@@ -40,3 +40,12 @@
 
 </body>
 </html>
+<?php
+// good shit
+echo '<tr>';
+foreach ($row as $field) {
+    echo '<td>' . htmlspecialchars($field) . '</td>';
+    echo "<br>";
+}
+echo '</tr>';
+?>

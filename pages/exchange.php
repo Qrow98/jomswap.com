@@ -2,6 +2,7 @@
 session_start();
 echo $_SESSION['ic'];
 echo $_SESSION['email'];
+require_once "../php/connect.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,19 +21,16 @@ echo $_SESSION['email'];
 <div class="wrapper">
   <a href="../index.php"><h1 style="font-size:7vw">JomSwap!</h1></a>
   <q cite="Me" style="font-size:3vw">One man's trash is another man's treasure.</q>
-  <br>
-  <br>
+  <br><br>
   <a href="signup.php" id="signup">Daftar</a>
   <a href="login.php" id="login">Log Masuk</a>
   <a href="exchange.php" id="trade">Pertukaran</a>
   <a href="inventory.php" id="inventory">Inventori</a>
   <a href="../php/logout.php" id="logout">Log Keluar</a>
   <br>
-  <img src="<?php echo $gambarBarangan; ?>" style='max-width:50%;height:auto;'>
   <h1>Pertukaran Semasa</h1>
 <?php
 $ic = $_SESSION['ic'];
-
 $num = 1;
 // $sql = "SELECT * FROM pertukaran LEFT JOIN barangan ON pertukaran.idBaranganOwner = barangan.idBarangan WHERE noIC=$ic";
 // $sql = "SELECT * FROM pertukaran p
@@ -45,6 +43,7 @@ JOIN barangan t2 ON t2.idBarangan = t.idBaranganRequester
 WHERE t1.noIC = '$ic' OR t2.noIC = '$ic'";
 // echo "<br>" . $sql . "<br>";
 if ($result = mysqli_query($conn, $sql)) {
+    echo "test";
     if (mysqli_num_rows($result) > 0) {
         echo "<table border=1>";
             echo "<tr>";

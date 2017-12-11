@@ -2,7 +2,7 @@
   "name": "jomswap.com",
   "version": "1.0.0",
   "description": "An item trading web app.",
-  "main": "index.php",
+  "main": "js/admin.js",  
   "dependencies": {
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1"

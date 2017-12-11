@@ -1,38 +1,148 @@
-<?php session_start(); ?>
+﻿<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JomSwap! - Laman Utama</title>
-  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/main.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <title>Tukar Barangan Anda! | JomSwap</title>
+  <!-- Favicon-->
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <script src="js/buttons.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+  <!-- Bootstrap Core Css -->
+  <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <!-- Waves Effect Css -->
+  <link href="plugins/node-waves/waves.css" rel="stylesheet" />
+  <!-- Animation Css -->
+  <link href="plugins/animate-css/animate.css" rel="stylesheet" />
+  <!-- Custom Css -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/themes/all-themes.css" rel="stylesheet" />
 </head>
-<body>
-<div class="wrapper">
-  <a href="index.php"><h1 style="font-size:7vw">JomSwap!</h1></a>
-  <q cite="Me" style="font-size:3vw">One man's trash is another man's treasure.</q>
-  <br>
-  <br>
-  <a href="pages/signup.php" id="signup">Daftar</a>
-  <a href="pages/login.php" id="login">Log Masuk</a>
-  <a href="pages/exchange.php" id="trade">Pertukaran</a>
-  <a href="pages/inventory.php" id="inventory">Inventori</a>
-  <a href="php/logout.php" id="logout">Log Keluar</a>
-  <br>
-  <br>
-  <a href="pages/additem.php" id="additems">Tambah Barang</a>
-  <a href="pages/profile.php"><?php echo $_SESSION['email']; ?></a>
 
+<body class="theme-cyan">
+  <!-- Page Loader -->
+  <div class="page-loader-wrapper">
+    <div class="loader">
+      <div class="preloader">
+        <div class="spinner-layer pl-cyan">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p>Tunggu sebentar...</p>
+    </div>
+  </div>
+  <!-- #END# Page Loader -->
+  <!-- Overlay For Sidebars -->
+  <div class="overlay"></div>
+  <!-- #END# Overlay For Sidebars -->
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <div class="search-icon">
+      <i class="material-icons">search</i>
+    </div>
+    <input type="text" placeholder="CARI BARANGAN...">
+    <div class="close-search">
+      <i class="material-icons">close</i>
+    </div>
+  </div>
+  <!-- #END# Search Bar -->
+  <!-- Top Bar -->
+  <nav class="navbar">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+        <a href="javascript:void(0);" class="bars"></a>
+        <a class="navbar-brand" href="index.html">JOMSWAP - TUKAR BARANGAN ANDA!</a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <!-- Call Search -->
+          <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
+          <!-- #END# Call Search -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- #Top Bar -->
+  <section>
+    <!-- Left Sidebar -->
+    <aside id="leftsidebar" class="sidebar">
+      <!-- User Info -->
+      <div class="user-info">
+        <div class="image">
+          <img src="images/user.png" width="48" height="48" alt="User" />
+        </div>
+        <div class="info-container">
+          <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Zulhilmi Sofi</div>
+          <div class="email">2ulhilmyx@gmail.com</div>
+        </div>
+      </div>
+      <!-- #User Info -->
+      <!-- Menu -->
+      <div class="menu">
+        <ul class="list">
+          <li class="header">MAIN NAVIGATION</li>
+          <li class="active">
+            <a href="index.html">
+              <i class="material-icons">home</i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/typography.html">
+              <i class="material-icons">text_fields</i>
+              <span>Inventori</span>
+            </a>
+          </li>
+          <li class="header">PENGGUNA</li>
+          <li>
+            <a href="javascript:void(0);">
+              <i class="material-icons">person</i>
+              <span>Profil</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0);">
+              <i class="material-icons">input</i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- #Menu -->
+      <!-- Footer -->
+      <div class="legal">
+        <div class="copyright">
+          &copy; 2017 - 2018 <a href="javascript:void(0);">Zulhilmi Sofi</a>
+        </div>
+        <div class="version">
+          <b>Version: </b> 0.5.9
+        </div>
+      </div>
+      <!-- #Footer -->
+    </aside>
+    <!-- #END# Left Sidebar -->
+  </section>
+  <!-- main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <h2>BARANGAN</h2>
+      </div>
+      <div class="row clearfix">
 <?php
 echo $_SESSION['ic'];
-echo "hello world";
-echo "hello world";
 require_once 'php/connect.php';
-$num = 1;
 $sql = "SELECT * FROM barangan";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
@@ -48,7 +158,6 @@ if ($result = mysqli_query($conn, $sql)) {
             echo "</tr>";
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
-                echo "<td>" . $num . ".</td>";
                 $dir = $row['gambarBarangan'];
                 $dir = preg_replace('$^../$', '', $dir);
                 echo "<td><img src='" . $dir . "' style='max-width:50%;height:auto;'></td>";
@@ -56,9 +165,36 @@ if ($result = mysqli_query($conn, $sql)) {
                 echo "<td>" . $row['butiranBarangan'] . "</td>";
                 echo "<td>" . $row['kategoriBarangan'] . "</td>";
                 echo "<td>" . $row['tarikhMuatNaik'] . "</td>";
-                echo "<td><a href='pages/item.php?idBarangan=" . $row['idBarangan'] . "'><button class='btn btn-primary'>LIHAT</button></a></td>";
+                echo "<td></td>";
             echo "</tr>";
-            $num++;
+            echo "
+            <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
+              <div class='card'>
+                <div class='header'>
+                  <h2>
+                    Basic Card Title <small>Description text here...</small>
+                  </h2>
+                  <ul class='header-dropdown m-r--5'>
+                    <li class='dropdown'>
+                      <a href='javascript:void(0);' class='dropdown-toggle'  data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>
+                        <i class='material-icons'>more_vert</i>
+                      </a>
+                      <ul class='dropdown-menu pull-right'>
+                        <li><a href='javascript:void(0);'>Action</a></li>
+                        <li><a href='javascript:void(0);'>Another action</a></li>
+                        <li><a href='javascript:void(0);'>Something else here</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class='body'>
+                  Quis pharetra a pharetra fames blandit. Risus faucibus velit  Risus imperdiet mattis neque volutpat, etiam lacinia netus  dictum  magnisfacilisisociosqu.Volutpat. Ridiculus nostra.
+                  <br><br>
+                  <a href='pages/item.php?idBarangan=" . $row['idBarangan'] . "'><button class='btn btn-primary'>LIHAT</button></a>
+                </div>
+              </div>
+            </div>
+            ";
         }
         echo "</table>";
         mysqli_free_result($result);
@@ -70,6 +206,34 @@ mysqli_close($conn);
 
 require 'php/hidebutton.php';
 ?>
-</div>
+        
+      </div>
+    </div>
+  </section>
+  <!-- Jquery Core Js -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  
+  <!-- Bootstrap Core Js -->
+  <script src="plugins/bootstrap/js/bootstrap.js"></script>
+  
+  <!-- Select Plugin Js -->
+  <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
+  
+  <!-- Slimscroll Plugin Js -->
+  <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+  
+  <!-- Waves Effect Plugin Js -->
+  <script src="plugins/node-waves/waves.js"></script>
+  
+  <!-- Jquery CountTo Plugin Js -->
+  <script src="plugins/jquery-countto/jquery.countTo.js"></script>
+  
+  <!-- Custom Js -->
+  <script src="js/admin.js"></script>
+  <script src="js/pages/index.js"></script>
+  
+  <!-- Demo Js -->
+  <script src="js/demo.js"></script>
 </body>
+
 </html>

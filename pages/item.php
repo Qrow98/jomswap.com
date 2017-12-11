@@ -170,7 +170,7 @@ if ($result = mysqli_query($conn, $sql)) {
           <input type="hidden" name="idBaranganOwner" value="<?php echo $idBarangan; ?>">
           <select name="idBaranganRequester" required>
             <?php echo $options;?>
-            <option disabled selected value style="display:none"> -- pilih kategori -- </option>
+            <option disabled selected value style="display:none"> -- pilih barangan -- </option>
           </select>
           <p>Tiada barangan? <a href="additem.php">Tambah di sini!</a></p>
         </div>

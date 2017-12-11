@@ -27,7 +27,7 @@
 
 <?php
 echo $_SESSION['ic'];
-
+echo "hello world";
 require_once 'php/connect.php';
 $num = 1;
 $sql = "SELECT * FROM barangan";

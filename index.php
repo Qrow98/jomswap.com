@@ -1,4 +1,26 @@
-﻿<?php session_start(); ?>
+﻿<?php
+session_start();
+require_once 'php/connect.php';
+
+$ic = $_SESSION['ic'];
+
+$sql = "SELECT * FROM pelajar WHERE noIC = $ic";
+if ($result = mysqli_query($conn, $sql)) {
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            $nama = $row['namaPelajar'];
+            $jantina = $row['jantina'];
+            $noTel = $row['noTel'];
+            $alamat = $row['alamat'];
+            $tarikhDaftar = $row['tarikhDaftar'];
+            $pic = $row['profilePicture'];
+        }
+        mysqli_free_result($result);
+    } else {
+        echo "Ralat dikesan. Sila cuba sebentar lagi.";
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -62,14 +84,20 @@
       <div class="navbar-header">
         <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
         <a href="javascript:void(0);" class="bars"></a>
-        <a class="navbar-brand" href="index.html">JOMSWAP - TUKAR BARANGAN ANDA!</a>
+        <a class="navbar-brand" href="index.php">JOMSWAP - TUKAR BARANGAN ANDA!</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <!-- Call Search -->
           <li><a href="javascript:void(0);" class="js-search" data-close="true" type="button" data-toggle="tooltip" data-placement="bottom" title="Cari barangan"><i class="material-icons waves-effect">search</i></a></li>
           <!-- #END# Call Search -->
-          <li><a href="pages/additem.php" type="button" data-toggle="tooltip" data-placement="bottom" title="Tambah Barangan"><i class="material-icons">add</i></a></li>
+<?php
+if (isset($_SESSION['email'])) {
+    echo "
+    <li><a href='pages/additem.php' type='button' data-toggle='tooltip' data-placement='bottom' title='Tambah Barangaclass='material-icons'>add</i></a></li>
+    ";
+}
+?>
         </ul>
       </div>
     </div>
@@ -80,25 +108,7 @@
     <aside id="leftsidebar" class="sidebar">
       <!-- User Info -->
       <div class="user-info">
-        <div class="image">
-          <img src="images/user.png" width="48" height="48" alt="User" />
-        </div>
-        <div class="info-container">
-        <?php
-        if (isset($_SESSION['email'])) {
-            echo "
-              <div class='name' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>". $_SESSION['ic'] ."</div>
-              <div class='email'>". $_SESSION['email'] ."</div>
-            ";
-        } else {
-            echo "
-              <div class='name' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Tetamu</div>
-              <div class='email'>Selamat datang!</div>
-            ";
-        }
-
-        ?>
-        </div>
+<?php require "php/userinfo.php"; ?>
       </div>
       <!-- #User Info -->
       <!-- Menu -->
@@ -106,65 +116,19 @@
         <ul class="list">
           <li class="header">MENU UTAMA</li>
           <li class="active">
-            <a href="index.html">
+            <a href="index.php">
               <i class="material-icons">home</i>
               <span>Laman Utama</span>
             </a>
           </li>
-            <?php
-            if (isset($_SESSION['email'])) {
-                echo "
-                  <li>
-                    <a href='pages/inventori.html'>
-                      <i class='material-icons'>shopping_basket</i>
-                      <span>Inventori</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='pages/typography.html'>
-                      <i class='material-icons'>swap_vert</i>
-                      <span>Pertukaran</span>
-                    </a>
-                  </li>
-                <li class='header'>MENU PENGGUNA</li>
-                  <li>
-                    <a href='javascript:void(0);'>
-                      <i class='material-icons'>person</i>
-                      <span>Profil</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='javascript:void(0);'>
-                      <i class='material-icons'>directions_run</i>
-                      <span>Logout</span>
-                    </a>
-                  </li>
-                ";
-            } else {
-                echo "
-                <li class='header'>MENU PENGGUNA</li>                
-                  <li>
-                    <a href='javascript:void(0);'>
-                      <i class='material-icons'>input</i>
-                      <span>Log Masuk</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='javascript:void(0);'>
-                      <i class='material-icons'>person_add</i>
-                      <span>Daftar</span>
-                    </a>
-                  </li>
-                ";
-            }
-            ?>
+<?php require "php/hidebutton.php"; ?>
         </ul>
       </div>
       <!-- #Menu -->
       <!-- Footer -->
       <div class="legal">
         <div class="copyright">
-          &copy; 2017 - 2018 <a href="javascript:void(0);">Zulhilmi Sofi</a>
+          &copy; 2017 - 2018 &nbsp;<a href="https://www.twitter.com/zulhilmy98">Zulhilmi Sofi</a>
         </div>
         <div class="version">
           <b>Version: </b> 0.5.9
@@ -182,9 +146,8 @@
       </div>
       <div class="row clearfix">
 <?php
-echo $_SESSION['ic'];
-require_once 'php/connect.php';
 $sql = "SELECT * FROM barangan";
+
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_array($result)) {
@@ -219,10 +182,7 @@ if ($result = mysqli_query($conn, $sql)) {
     }
 }
 mysqli_close($conn);
-
-require 'php/hidebutton.php';
 ?>
-        
       </div>
     </div>
   </section>

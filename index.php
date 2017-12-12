@@ -84,7 +84,7 @@ if ($result = mysqli_query($conn, $sql)) {
       <div class="navbar-header">
         <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
         <a href="javascript:void(0);" class="bars"></a>
-        <a class="navbar-brand" href="index.php">JOMSWAP - TUKAR BARANGAN ANDA!</a>
+        <a class="navbar-brand" href="index.php">Jom<b>SWAP</b> - Tukar Barangan Anda!</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
@@ -188,26 +188,19 @@ mysqli_close($conn);
   </section>
   <!-- Jquery Core Js -->
   <script src="plugins/jquery/jquery.min.js"></script>
-  
   <!-- Bootstrap Core Js -->
   <script src="plugins/bootstrap/js/bootstrap.js"></script>
-  
   <!-- Select Plugin Js -->
   <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
-  
   <!-- Slimscroll Plugin Js -->
   <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-  
   <!-- Waves Effect Plugin Js -->
   <script src="plugins/node-waves/waves.js"></script>
-  
   <!-- Jquery CountTo Plugin Js -->
   <script src="plugins/jquery-countto/jquery.countTo.js"></script>
-  
   <!-- Custom Js -->
   <script src="js/admin.js"></script>
   <script src="js/pages/index.js"></script>
-  
   <!-- Demo Js -->
   <script src="js/demo.js"></script>
 </body>

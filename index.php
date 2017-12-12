@@ -108,7 +108,7 @@ if (isset($_SESSION['email'])) {
     <aside id="leftsidebar" class="sidebar">
       <!-- User Info -->
       <div class="user-info">
-<?php require "php/userinfo.php"; ?>
+<?php require "php/userinfoindex.php"; ?>
       </div>
       <!-- #User Info -->
       <!-- Menu -->
@@ -121,7 +121,7 @@ if (isset($_SESSION['email'])) {
               <span>Laman Utama</span>
             </a>
           </li>
-<?php require "php/hidebutton.php"; ?>
+<?php require "php/hidebuttonindex.php"; ?>
         </ul>
       </div>
       <!-- #Menu -->

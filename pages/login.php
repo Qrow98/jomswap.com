@@ -113,6 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="body">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="sign_in" method="post">
           <div class="msg">Isi butiran akaun anda untuk log masuk</div>
+
           <div class="input-group <?php echo (!empty($emailError)) ? 'has-error' : ''; ?>">
             <span class="input-group-addon">
               <i class="material-icons">person</i>
@@ -122,6 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <span class="help-block"><?php echo $emailError; ?></span>
           </div>
+
           <div class="input-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
             <span class="input-group-addon">
               <i class="material-icons">lock</i>
@@ -131,15 +133,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <span class="help-block"><?php echo $password_err; ?></span>
           </div>
-          <div class="row">
-            <div class="col-xs-12 p-t-5">
-              <button class="btn btn-block bg-pink waves-effect" type="submit">LOG MASUK</button>
-            </div>
-          </div>
-          <div class="row m-t-15 m-b--20">
-            <div class="col-xs-12 align-center">
-              Tiada akaun? <a href="signup.php">Daftar Sekarang!</a>
-            </div>
+          
+          <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">LOG MASUK</button>
+          <div class="m-t-25 m-b--5 align-center">
+            <a href="signup.php">Tiada Akaun? Daftar Sekarang!</a>
           </div>
         </form>
       </div>

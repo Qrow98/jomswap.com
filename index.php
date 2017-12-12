@@ -67,8 +67,9 @@
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <!-- Call Search -->
-          <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
+          <li><a href="javascript:void(0);" class="js-search" data-close="true" type="button" data-toggle="tooltip" data-placement="bottom" title="Cari barangan"><i class="material-icons waves-effect">search</i></a></li>
           <!-- #END# Call Search -->
+          <li><a href="pages/additem.php" type="button" data-toggle="tooltip" data-placement="bottom" title="Tambah Barangan"><i class="material-icons">add</i></a></li>
         </ul>
       </div>
     </div>
@@ -83,40 +84,80 @@
           <img src="images/user.png" width="48" height="48" alt="User" />
         </div>
         <div class="info-container">
-          <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Zulhilmi Sofi</div>
-          <div class="email">2ulhilmyx@gmail.com</div>
+        <?php
+        if (isset($_SESSION['email'])) {
+            echo "
+              <div class='name' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>". $_SESSION['ic'] ."</div>
+              <div class='email'>". $_SESSION['email'] ."</div>
+            ";
+        } else {
+            echo "
+              <div class='name' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Tetamu</div>
+              <div class='email'>Selamat datang!</div>
+            ";
+        }
+
+        ?>
         </div>
       </div>
       <!-- #User Info -->
       <!-- Menu -->
       <div class="menu">
         <ul class="list">
-          <li class="header">MAIN NAVIGATION</li>
+          <li class="header">MENU UTAMA</li>
           <li class="active">
             <a href="index.html">
               <i class="material-icons">home</i>
-              <span>Home</span>
+              <span>Laman Utama</span>
             </a>
           </li>
-          <li>
-            <a href="pages/typography.html">
-              <i class="material-icons">text_fields</i>
-              <span>Inventori</span>
-            </a>
-          </li>
-          <li class="header">PENGGUNA</li>
-          <li>
-            <a href="javascript:void(0);">
-              <i class="material-icons">person</i>
-              <span>Profil</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0);">
-              <i class="material-icons">input</i>
-              <span>Logout</span>
-            </a>
-          </li>
+            <?php
+            if (isset($_SESSION['email'])) {
+                echo "
+                  <li>
+                    <a href='pages/inventori.html'>
+                      <i class='material-icons'>shopping_basket</i>
+                      <span>Inventori</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href='pages/typography.html'>
+                      <i class='material-icons'>swap_vert</i>
+                      <span>Pertukaran</span>
+                    </a>
+                  </li>
+                <li class='header'>MENU PENGGUNA</li>
+                  <li>
+                    <a href='javascript:void(0);'>
+                      <i class='material-icons'>person</i>
+                      <span>Profil</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href='javascript:void(0);'>
+                      <i class='material-icons'>directions_run</i>
+                      <span>Logout</span>
+                    </a>
+                  </li>
+                ";
+            } else {
+                echo "
+                <li class='header'>MENU PENGGUNA</li>                
+                  <li>
+                    <a href='javascript:void(0);'>
+                      <i class='material-icons'>input</i>
+                      <span>Log Masuk</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href='javascript:void(0);'>
+                      <i class='material-icons'>person_add</i>
+                      <span>Daftar</span>
+                    </a>
+                  </li>
+                ";
+            }
+            ?>
         </ul>
       </div>
       <!-- #Menu -->
@@ -160,7 +201,7 @@ if ($result = mysqli_query($conn, $sql)) {
                 </div>
                 <div class='body'>
                   <div class='image'>
-                    <img src='" . $dir . "' class='img-responsive thumbnail' style='max-height:250px'>
+                    <img src='" . $dir . "' class='img-responsive thumbnail' style='max-height:200px;'>
                   </div>
                   " . $row['butiranBarangan'] . "
                   <br>

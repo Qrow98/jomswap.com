@@ -146,60 +146,35 @@ require_once 'php/connect.php';
 $sql = "SELECT * FROM barangan";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
-        echo "<table border=1>";
-            echo "<tr>";
-                echo "<th>Bil.</th>";
-                echo "<th>Gambar</th>";
-                echo "<th>Nama</th>";
-                echo "<th>Butiran</th>";
-                echo "<th>Kategori</th>";
-                echo "<th>Tarikh</th>";
-                echo "<th>Action</th>";
-            echo "</tr>";
         while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-                $dir = $row['gambarBarangan'];
-                $dir = preg_replace('$^../$', '', $dir);
-                echo "<td><img src='" . $dir . "' style='max-width:50%;height:auto;'></td>";
-                echo "<td>" . $row['namaBarangan'] . "</td>";
-                echo "<td>" . $row['butiranBarangan'] . "</td>";
-                echo "<td>" . $row['kategoriBarangan'] . "</td>";
-                echo "<td>" . $row['tarikhMuatNaik'] . "</td>";
-                echo "<td></td>";
-            echo "</tr>";
+            $dir = $row['gambarBarangan'];
+            $dir = preg_replace('$^../$', '', $dir);
             echo "
             <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
               <div class='card'>
-                <div class='header'>
+                <div class='header bg-cyan'>
                   <h2>
-                    Basic Card Title <small>Description text here...</small>
+                    " . $row['namaBarangan'] . "
+                    <small>" . $row['kategoriBarangan'] . "</small>
                   </h2>
-                  <ul class='header-dropdown m-r--5'>
-                    <li class='dropdown'>
-                      <a href='javascript:void(0);' class='dropdown-toggle'  data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>
-                        <i class='material-icons'>more_vert</i>
-                      </a>
-                      <ul class='dropdown-menu pull-right'>
-                        <li><a href='javascript:void(0);'>Action</a></li>
-                        <li><a href='javascript:void(0);'>Another action</a></li>
-                        <li><a href='javascript:void(0);'>Something else here</a></li>
-                      </ul>
-                    </li>
-                  </ul>
                 </div>
                 <div class='body'>
-                  Quis pharetra a pharetra fames blandit. Risus faucibus velit  Risus imperdiet mattis neque volutpat, etiam lacinia netus  dictum  magnisfacilisisociosqu.Volutpat. Ridiculus nostra.
+                  <div class='image'>
+                    <img src='" . $dir . "' class='img-responsive thumbnail' style='max-height:250px'>
+                  </div>
+                  " . $row['butiranBarangan'] . "
+                  <br>
+                  " . $row['tarikhMuatNaik'] . "
                   <br><br>
-                  <a href='pages/item.php?idBarangan=" . $row['idBarangan'] . "'><button class='btn btn-primary'>LIHAT</button></a>
+                  <a href='pages/item.php?idBarangan=" . $row['idBarangan'] . "'><button class='btn bg-cyan waves-effect'>LIHAT</button></a>
                 </div>
               </div>
             </div>
             ";
         }
-        echo "</table>";
         mysqli_free_result($result);
     } else {
-        echo "Ralat dikesan. Sila cuba sebentar lagi.";
+        echo "Tiada barangan.";
     }
 }
 mysqli_close($conn);

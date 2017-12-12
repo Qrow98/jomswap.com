@@ -1,9 +1,9 @@
-﻿<?php
+<?php
 session_start();
-require_once 'php/connect.php';
+
+require_once '../php/connect.php';
 
 $ic = $_SESSION['ic'];
-
 $sql = "SELECT * FROM pelajar WHERE noIC = $ic";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
@@ -23,29 +23,31 @@ if ($result = mysqli_query($conn, $sql)) {
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <title>Tukar Barangan Anda! | JomSwap</title>
+  <title><?php echo $namaBarangan; ?> | JomSwap</title>
   <!-- Favicon-->
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
   <!-- Bootstrap Core Css -->
-  <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
   <!-- Waves Effect Css -->
-  <link href="plugins/node-waves/waves.css" rel="stylesheet" />
+  <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
   <!-- Animation Css -->
-  <link href="plugins/animate-css/animate.css" rel="stylesheet" />
+  <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
   <!-- Custom Css -->
-  <link href="css/style.css" rel="stylesheet">
-  <link href="css/themes/all-themes.css" rel="stylesheet" />
+  <link href="../css/style.css" rel="stylesheet">
+  <link href="../css/themes/all-themes.css" rel="stylesheet" />
+  <script src="../plugins/jquery/jquery.min.js"></script>
+  <script src="../js/hiding.js"></script>
+  <script src="../js/buttons.js"></script>
+  <script src="../js/popup.js"></script>
 </head>
-
 <body class="theme-cyan">
   <!-- Page Loader -->
   <div class="page-loader-wrapper">
@@ -82,20 +84,20 @@ if ($result = mysqli_query($conn, $sql)) {
   <nav class="navbar">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"   aria-expanded="false"></a>
         <a href="javascript:void(0);" class="bars"></a>
-        <a class="navbar-brand" href="index.php">Jom<b>SWAP</b> - Tukar Barangan Anda!</a>
+        <a class="navbar-brand" href="../index.php">Jom<b>SWAP</b> - Tukar Barangan Anda!</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <!-- Call Search -->
-          <li><a href="javascript:void(0);" class="js-search" data-close="true" type="button" data-toggle="tooltip" data-placement="bottom" title="Cari barangan"><i class="material-icons waves-effect">search</i></a></li>
+          <li><a href="javascript:void(0);" class="js-search" data-close="true" type="button" data-toggle="tooltip" data-placement="bottom"   title="Cari barangan"><i class="material-icons waves-effect">search</i></a></li>
           <!-- #END# Call Search -->
 <?php
 if (isset($_SESSION['email'])) {
-    echo "
-    <li><a href='pages/additem.php' type='button' data-toggle='tooltip' data-placement='bottom' title='Tambah Barangan' class='material-icons'>add</i></a></li>
-    ";
+  echo "
+  <li><a href='../pages/additem.php' type='button' data-toggle='tooltip' data-placement='bottom' title='Tambah  Barangan' class='material-icons'>add</i></a></li>
+  ";
 }
 ?>
         </ul>
@@ -108,7 +110,7 @@ if (isset($_SESSION['email'])) {
     <aside id="leftsidebar" class="sidebar">
       <!-- User Info -->
       <div class="user-info">
-<?php require "php/userinfoindex.php"; ?>
+<?php require "../php/userinfo.php"; ?>
       </div>
       <!-- #User Info -->
       <!-- Menu -->
@@ -121,7 +123,7 @@ if (isset($_SESSION['email'])) {
               <span>Laman Utama</span>
             </a>
           </li>
-<?php require "php/hidebuttonindex.php"; ?>
+<?php require "../php/hidebutton.php"; ?>
         </ul>
       </div>
       <!-- #Menu -->
@@ -145,64 +147,27 @@ if (isset($_SESSION['email'])) {
         <h2>BARANGAN</h2>
       </div>
       <div class="row clearfix">
-<?php
-$sql = "SELECT * FROM barangan";
-
-if ($result = mysqli_query($conn, $sql)) {
-    if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_array($result)) {
-            $dir = $row['gambarBarangan'];
-            $dir = preg_replace('$^../$', '', $dir);
-            echo "
-            <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
-              <div class='card'>
-                <div class='header bg-cyan'>
-                  <h2>
-                    " . $row['namaBarangan'] . "
-                    <small>" . $row['kategoriBarangan'] . "</small>
-                  </h2>
-                </div>
-                <div class='body'>
-                  <div class='image'>
-                    <img src='" . $dir . "' class='img-responsive thumbnail' style='max-height:200px;'>
-                  </div>
-                  " . $row['butiranBarangan'] . "
-                  <br>
-                  " . $row['tarikhMuatNaik'] . "
-                  <br><br>
-                  <a href='pages/item.php?idBarangan=" . $row['idBarangan'] . "'><button class='btn bg-cyan waves-effect'>LIHAT</button></a>
-                </div>
-              </div>
-            </div>
-            ";
-        }
-        mysqli_free_result($result);
-    } else {
-        echo "Tiada barangan.";
-    }
-}
-mysqli_close($conn);
-?>
+        <!-- insert stuff here -->
       </div>
     </div>
   </section>
   <!-- Jquery Core Js -->
-  <script src="plugins/jquery/jquery.min.js"></script>
+  <script src="../plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap Core Js -->
-  <script src="plugins/bootstrap/js/bootstrap.js"></script>
+  <script src="../plugins/bootstrap/js/bootstrap.js"></script>
   <!-- Select Plugin Js -->
-  <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
+  <script src="../plugins/bootstrap-select/js/bootstrap-select.js"></script>
   <!-- Slimscroll Plugin Js -->
-  <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+  <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
   <!-- Waves Effect Plugin Js -->
-  <script src="plugins/node-waves/waves.js"></script>
+  <script src="../plugins/node-waves/waves.js"></script>
   <!-- Jquery CountTo Plugin Js -->
-  <script src="plugins/jquery-countto/jquery.countTo.js"></script>
+  <script src="../plugins/jquery-countto/jquery.countTo.js"></script>
   <!-- Custom Js -->
-  <script src="js/admin.js"></script>
-  <script src="js/pages/index.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/pages/index.js"></script>
   <!-- Demo Js -->
-  <script src="js/demo.js"></script>
+  <script src="../js/demo.js"></script>
 </body>
 
 </html>

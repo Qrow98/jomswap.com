@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <title><?php echo $namaBarangan; ?> | JomSwap</title>
+  <title><?php echo $nama; ?> | JomSwap</title>
   <!-- Favicon-->
   <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
@@ -217,7 +217,7 @@ if (isset($_SESSION['email'])) {
         <ul class="list">
           <li class="header">MENU UTAMA</li>
           <li class="active">
-            <a href="index.php">
+            <a href="../index.php">
               <i class="material-icons">home</i>
               <span>Laman Utama</span>
             </a>

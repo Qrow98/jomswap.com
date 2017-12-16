@@ -121,7 +121,7 @@ if (isset($_SESSION['email'])) {
         <ul class="list">
           <li class="header">MENU UTAMA</li>
           <li class="active">
-            <a href="index.php">
+            <a href="../index.php">
               <i class="material-icons">home</i>
               <span>Laman Utama</span>
             </a>
@@ -149,7 +149,7 @@ if (isset($_SESSION['email'])) {
       <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
-            <div class="header">
+            <div class="header bg-cyan">
               <h2>
                 Inventori
                 <small>Berikut adalah semua barangan anda.</small>
@@ -179,7 +179,7 @@ if ($result = mysqli_query($conn, $sql)) {
         ";
         while ($row = mysqli_fetch_array($result)) {
             echo "
-            <tr class='clickable-rows' data-href='item.php?idBarangan=" . $row['idBarangan'] . "'>
+            <tr class='clickable-rows'>
               <th scope='row'>" . $num . "</th>
               <td>
                 <div class='image'>

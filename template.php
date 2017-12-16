@@ -45,7 +45,6 @@ if ($result = mysqli_query($conn, $sql)) {
   <link href="../css/themes/all-themes.css" rel="stylesheet" />
   <script src="../plugins/jquery/jquery.min.js"></script>
   <script src="../js/hiding.js"></script>
-  <script src="../js/buttons.js"></script>
   <script src="../js/popup.js"></script>
 </head>
 <body class="theme-cyan">

@@ -290,10 +290,9 @@ if (isset($_SESSION['email'])) {
               <label>Gambar:</label>
               <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
             </div>
-            <br>
             <div class="form-group <?php echo (!empty($butiranError)) ? 'has-error' : ''; ?>">
               <label>Butiran:</label>
-              <textarea name="butiran" class="form-control" cols="30" rows="5" readonly><?php echo $butiranBarangan; ?></textarea>
+              <textarea name="butiran" class="form-control" cols="15" rows="3" readonly><?php echo $butiranBarangan; ?></textarea>
               <span class="help-block"><?php echo $butiranError; ?></span>
             </div>
             <div class="form-group">
@@ -312,7 +311,27 @@ if (isset($_SESSION['email'])) {
               <input type="submit" class="btn btn-primary" value="Hantar">
             </div>
           </form>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btnExchange">Tukar</button>
+<?php
+$sql = "SELECT noIC FROM barangan WHERE idBarangan = '$idBarangan'";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $tempIC = $row['noIC'];
+    }
+    if ($_SESSION['ic'] != $tempIC) {
+        echo "
+        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal' id='btnExchange'>Tukar</button>
+        ";
+    }
+} else {
+    echo "Ralat dikesan. Sila cuba sebentar lagi.";
+    echo "<br>";
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+// Close connection
+mysqli_close($conn);
+?>
           <!-- Modal -->
           <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -324,12 +343,12 @@ if (isset($_SESSION['email'])) {
                 </div>
                 <div class="modal-body">
                   <form action="../php/trade.php" method="post">
-                  <input type="hidden" name="idBaranganOwner" value="<?php echo $idBarangan; ?>">
-                  <select name="idBaranganRequester" required>
-                    <?php echo $options;?>
-                    <option disabled selected value style="display:none"> -- pilih barangan -- </option>
-                  </select>
-                  <p>Tiada barangan? <a href="additem.php">Tambah di sini!</a></p>
+                    <input type="hidden" name="idBaranganOwner" value="<?php echo $idBarangan; ?>">
+                    <select name="idBaranganRequester" required>
+                      <?php echo $options;?>
+                      <option disabled selected value style="display:none"> -- pilih barangan -- </option>
+                    </select>
+                    <p>Tiada barangan? <a href="additem.php">Tambah di sini!</a></p>
                 </div>
                 <div class="modal-footer">
                   <input type="submit" value="Tukar" class="btn btn-primary tukar">
@@ -363,25 +382,5 @@ if (isset($_SESSION['email'])) {
   <!-- Demo Js -->
   <script src="../js/demo.js"></script>
 </body>
-<?php
-$sql = "SELECT noIC FROM barangan WHERE idBarangan = '$idBarangan'";
-$result = mysqli_query($conn, $sql);
 
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $tempIC = $row['noIC'];
-    }
-    if ($_SESSION['ic'] == $tempIC) {
-        echo "<script>","isOwner();","</script>";
-    } else {
-        echo "<script>","notOwner();","</script>";
-    }
-} else {
-    echo "Ralat dikesan. Sila cuba sebentar lagi.";
-    echo "<br>";
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-// Close connection
-mysqli_close($conn);
-?>
 </html>

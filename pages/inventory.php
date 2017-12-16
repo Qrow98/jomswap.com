@@ -1,10 +1,27 @@
 <?php
 session_start(); 
-echo $_SESSION['ic'];
-echo $_SESSION['email'];
+
 require_once "../php/connect.php";
 
-if (isset($_POST['idBarangan']) && !empty(trim($_POST['idBarangan']))) {
+$ic = $_SESSION['ic'];
+$sql = "SELECT * FROM pelajar WHERE noIC = $ic";
+if ($result = mysqli_query($conn, $sql)) {
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            $nama = $row['namaPelajar'];
+            $jantina = $row['jantina'];
+            $noTel = $row['noTel'];
+            $alamat = $row['alamat'];
+            $tarikhDaftar = $row['tarikhDaftar'];
+            $pic = $row['profilePicture'];
+        }
+        mysqli_free_result($result);
+    } else {
+        echo "Ralat dikesan. Sila cuba sebentar lagi.";
+    }
+}
+
+if (isset($_GET['idBarangan']) && !empty(trim($_GET['idBarangan']))) {
     include '../php/deleteItem.php';
 }
 ?>
@@ -12,71 +29,214 @@ if (isset($_POST['idBarangan']) && !empty(trim($_POST['idBarangan']))) {
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JomSwap! - Inventori</title>
-  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="../js/buttons.js"></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <title>Inventori | JomSwap</title>
+  <!-- Favicon-->
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+  <!-- Bootstrap Core Css -->
+  <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <!-- Waves Effect Css -->
+  <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+  <!-- Animation Css -->
+  <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+  <!-- Custom Css -->
+  <link href="../css/style.css" rel="stylesheet">
+  <link href="../css/themes/all-themes.css" rel="stylesheet" />
+  <script src="../plugins/jquery/jquery.min.js"></script>
+  <script src="../js/hiding.js"></script>
   <script src="../js/popup.js"></script>
-  </head>
-<body>
-<div class="wrapper">
-  <a href="../index.php"><h1 style="font-size:7vw">JomSwap!</h1></a>
-  <q cite="Me" style="font-size:3vw">One man's trash is another man's treasure.</q>
-  <br>
-  <br>
-  <a href="signup.php" id="signup">Daftar</a>
-  <a href="login.php" id="login">Log Masuk</a>
-  <a href="exchange.php" id="trade">Pertukaran</a>
-  <a href="inventory.php" id="inventory">Inventori</a>
-  <a href="../php/logout.php" id="logout">Log Keluar</a>
-  <br>
-  <a href="additem.php" id="additems">Tambah Barang</a>
+</head>
+<body class="theme-cyan">
+  <!-- Page Loader -->
+  <div class="page-loader-wrapper">
+    <div class="loader">
+      <div class="preloader">
+        <div class="spinner-layer pl-cyan">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p>Tunggu sebentar...</p>
+    </div>
+  </div>
+  <!-- #END# Page Loader -->
+  <!-- Overlay For Sidebars -->
+  <div class="overlay"></div>
+  <!-- #END# Overlay For Sidebars -->
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <div class="search-icon">
+      <i class="material-icons">search</i>
+    </div>
+    <input type="text" placeholder="CARI BARANGAN...">
+    <div class="close-search">
+      <i class="material-icons">close</i>
+    </div>
+  </div>
+  <!-- #END# Search Bar -->
+  <!-- Top Bar -->
+  <nav class="navbar">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"   aria-expanded="false"></a>
+        <a href="javascript:void(0);" class="bars"></a>
+        <a class="navbar-brand" href="../index.php">Jom<b>SWAP</b> - Tukar Barangan Anda!</a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <!-- Call Search -->
+          <li><a href="javascript:void(0);" class="js-search" data-close="true" type="button" data-toggle="tooltip" data-placement="bottom"   title="Cari barangan"><i class="material-icons waves-effect">search</i></a></li>
+          <!-- #END# Call Search -->
+<?php
+if (isset($_SESSION['email'])) {
+  echo "
+  <li><a href='../pages/additem.php' type='button' data-toggle='tooltip' data-placement='bottom' title='Tambah  Barangan' class='material-icons'>add</i></a></li>
+  ";
+}
+?>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- #Top Bar -->
+  <section>
+    <!-- Left Sidebar -->
+    <aside id="leftsidebar" class="sidebar">
+      <!-- User Info -->
+      <div class="user-info">
+<?php require "../php/userinfo.php"; ?>
+      </div>
+      <!-- #User Info -->
+      <!-- Menu -->
+      <div class="menu">
+        <ul class="list">
+          <li class="header">MENU UTAMA</li>
+          <li class="active">
+            <a href="index.php">
+              <i class="material-icons">home</i>
+              <span>Laman Utama</span>
+            </a>
+          </li>
+<?php require "../php/hidebutton.php"; ?>
+        </ul>
+      </div>
+      <!-- #Menu -->
+      <!-- Footer -->
+      <div class="legal">
+        <div class="copyright">
+          &copy; 2017 - 2018 &nbsp;<a href="https://www.twitter.com/zulhilmy98">Zulhilmi Sofi</a>
+        </div>
+        <div class="version">
+          <b>Version: </b> 0.5.9
+        </div>
+      </div>
+      <!-- #Footer -->
+    </aside>
+    <!-- #END# Left Sidebar -->
+  </section>
+  <!-- main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="header">
+              <h2>
+                Inventori
+                <small>Berikut adalah semua barangan anda.</small>
+              </h2>
+            </div>
+            <div class="body table-responsive">
 <?php
 $ic = $_SESSION['ic'];
 $num = 1;
 $sql = "SELECT * FROM barangan WHERE noIC = '$ic'";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
-        echo "<table border=1>";
-            echo "<tr>";
-                echo "<th>Bil.</th>";
-                echo "<th>Gambar</th>";
-                echo "<th>Nama</th>";
-                echo "<th>Butiran</th>";
-                echo "<th>Kategori</th>";
-                echo "<th>Tarikh</th>";
-                echo "<th>Action</th>";
-            echo "</tr>";
+        echo "
+        <table class='table table-hover'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>GAMBAR</th>
+              <th>NAMA</th>
+              <th>BUTIRAN</th>
+              <th>KATEGORI</th>
+              <th>TARIKH</th>
+              <th>TINDAKAN</th>
+            </tr>
+          </thead>
+          <tbody>
+        ";
         while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-                echo "<td>" . $num . ".</td>";
-                echo "<td><img src='" . $row['gambarBarangan'] . "' style='max-width:50%;height:auto;'></td>";
-                echo "<td>" . $row['namaBarangan'] . "</td>";
-                echo "<td>" . $row['butiranBarangan'] . "</td>";
-                echo "<td>" . $row['kategoriBarangan'] . "</td>";
-                echo "<td>" . $row['tarikhMuatNaik'] . "</td>";
-                echo "<td>";
-                echo "<a href='item.php?idBarangan=" . $row['idBarangan'] . "'><button class='btn btn-primary'>LIHAT</button></a>";
-                echo "<form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='post'>
-                <input type='hidden' name='idBarangan' value=" . $row['idBarangan'] . ">
-                <input type='submit' class='btn btn-primary del' value='PADAM'>
-                </form>";
-                echo "</td>";
-            echo "</tr>";
+            echo "
+            <tr class='clickable-rows' data-href='item.php?idBarangan=" . $row['idBarangan'] . "'>
+              <th scope='row'>" . $num . "</th>
+              <td>
+                <div class='image'>
+                  <img src='" . $row['gambarBarangan'] . "' class='img-responsive thumbnail' style='max-height:200px;'>
+                </div>
+              </td>
+              <td>" . $row['namaBarangan'] . "</td>
+              <td>" . $row['butiranBarangan'] . "</td>
+              <td>" . $row['kategoriBarangan'] . "</td>
+              <td>" . $row['tarikhMuatNaik'] . "</td>
+              <td>
+                <a href='../php/deleteitem.php?idBarangan=" . $row['idBarangan'] . "'>
+                  <button class='btn btn-primary'>PADAM BARANGAN</button>
+                </a>
+                <br>
+                <a href='item.php?idBarangan=" . $row['idBarangan'] . "'>
+                  <button class='btn btn-primary'>LIHAT</button>
+                </a>
+              </td>
+            </tr>
+            ";
             $num++;
         }
-        echo "</table>";
+        echo "
+          </tbody>
+        </table>
+        ";
         mysqli_free_result($result);
     } else {
         echo "<br>Tiada Barangan. Sila tambah barangan anda.";
     }
 }
 mysqli_close($conn);
-
-require '../php/hidebutton.php';
 ?>
-</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Jquery Core Js -->
+  <script src="../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap Core Js -->
+  <script src="../plugins/bootstrap/js/bootstrap.js"></script>
+  <!-- Select Plugin Js -->
+  <script src="../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+  <!-- Slimscroll Plugin Js -->
+  <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+  <!-- Waves Effect Plugin Js -->
+  <script src="../plugins/node-waves/waves.js"></script>
+  <!-- Jquery CountTo Plugin Js -->
+  <script src="../plugins/jquery-countto/jquery.countTo.js"></script>
+  <!-- Custom Js -->
+  <script src="../js/admin.js"></script>
+  <script src="../js/pages/index.js"></script>
+  <!-- Demo Js -->
+  <script src="../js/demo.js"></script>
 </body>
+
 </html>

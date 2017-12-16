@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <title>Log Masuk | JomSwap</title>
+  <title>Tambah Barangan | JomSwap</title>
   <!-- Favicon-->
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <!-- Google Fonts -->

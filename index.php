@@ -146,7 +146,8 @@ if (isset($_SESSION['email'])) {
       </div>
       <div class="row clearfix">
 <?php
-$sql = "SELECT * FROM barangan";
+$sql = "SELECT *
+FROM barangan LEFT JOIN pelajar ON barangan.noIC = pelajar.noIC";
 
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
@@ -154,6 +155,7 @@ if ($result = mysqli_query($conn, $sql)) {
             $dir = $row['gambarBarangan'];
             $dir = preg_replace('$^../$', '', $dir);
             echo "
+            <a href='pages/item.php?idBarangan=" . $row['idBarangan'] . "'>
             <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
               <div class='card'>
                 <div class='header bg-cyan'>
@@ -166,14 +168,13 @@ if ($result = mysqli_query($conn, $sql)) {
                   <div class='image'>
                     <img src='" . $dir . "' class='img-responsive thumbnail' style='max-height:200px;'>
                   </div>
-                  " . $row['butiranBarangan'] . "
-                  <br>
-                  " . $row['tarikhMuatNaik'] . "
-                  <br><br>
-                  <a href='pages/item.php?idBarangan=" . $row['idBarangan'] . "'><button class='btn bg-cyan waves-effect'>LIHAT</button></a>
+                  <p>Butiran: <b>" . $row['butiranBarangan'] . "</b></p>
+                  <p>Tarikh Muat Naik: <b>" . $row['tarikhMuatNaik'] . "</b></p>
+                  <p>Pemilik: <b>" . $row['namaPelajar'] . "</b></p>
                 </div>
               </div>
             </div>
+            </a>
             ";
         }
         mysqli_free_result($result);

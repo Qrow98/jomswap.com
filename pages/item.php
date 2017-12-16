@@ -11,6 +11,8 @@ if (isset($_GET['idBarangan']) && !empty(trim($_GET['idBarangan']))) {
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_array($result)) {
                 $gambarBarangan = $row['gambarBarangan'];
+                $gambarBarangan2 = $row['gambarBarangan2'];
+                $gambarBarangan3 = $row['gambarBarangan3'];
                 $namaBarangan = $row['namaBarangan'];
                 $butiranBarangan = $row['butiranBarangan'];
                 $kategoriBarangan = $row['kategoriBarangan'];
@@ -243,10 +245,10 @@ if (isset($_SESSION['email'])) {
                   <img src="<?php echo $gambarBarangan; ?>">
                 </div>
                 <div class="item">
-                  <img src="<?php echo $gambarBarangan; ?>">
+                  <img src="<?php echo $gambarBarangan2; ?>">
                 </div>
                 <div class="item">
-                  <img src="<?php echo $gambarBarangan; ?>">
+                  <img src="<?php echo $gambarBarangan3; ?>">
                 </div>
               </div>
               <!-- Controls -->

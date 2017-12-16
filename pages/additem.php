@@ -1,7 +1,5 @@
 <?php
 session_start();
-echo $_SESSION['ic'];
-echo $_SESSION['email'];
 
 require_once '../php/connect.php';
 
@@ -39,12 +37,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Profile picture
     include '../php/upload.php';
+    include '../php/upload2.php';
+    include '../php/upload3.php';
         
     // Check input errors before inserting in database
     if (empty($namaError) && empty($butiranError) && empty($kategoriError)) {
         
-        $sql = "INSERT INTO barangan (namaBarangan, butiranBarangan, kategoriBarangan, tarikhMuatNaik, gambarBarangan, noIC)
-        VALUES ('$nama', '$butiran', '$kategori', '$tarikh', '$target_file', '$ic')";
+        $sql = "INSERT INTO barangan (namaBarangan, butiranBarangan, kategoriBarangan, tarikhMuatNaik, gambarBarangan, gambarBarangan2, gambarBarangan3, noIC)
+        VALUES ('$nama', '$butiran', '$kategori', '$tarikh', '$target_file', '$target_file2', '$target_file3', '$ic')";
 
         if (mysqli_query($conn, $sql)) {
             echo "<script>",
@@ -64,71 +64,118 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JomSwap! - Tambah Barangan</title>
-  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <script src="../js/buttons.js"></script>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <title>Log Masuk | JomSwap</title>
+  <!-- Favicon-->
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+  <!-- Bootstrap Core Css -->
+  <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <!-- Waves Effect Css -->
+  <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+  <!-- Animation Css -->
+  <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+  <!-- Bootstrap Select Css -->
+  <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+  <!-- Custom Css -->
+  <link href="../css/style.css" rel="stylesheet">
 </head>
-<body>
-<div class="wrapper">
-  <a href="../index.php"><h1 style="font-size:7vw">JomSwap!</h1></a>
-  <q cite="Me" style="font-size:3vw">One man's trash is another man's treasure.</q>
-  <br>
-  <br>
-  <a href="signup.php" id="signup">Daftar</a>
-  <a href="login.php" id="login">Log Masuk</a>
-  <a href="exchange.php" id="trade">Pertukaran</a>
-  <a href="inventory.php" id="inventory">Inventori</a>
-  <a href="../php/logout.php" id="logout">Log Keluar</a>
-  <br>
-  <h2>Tambah Barangan</h2>
-  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 
-    <div class="form-group <?php echo (!empty($namaError)) ? 'has-error' : ''; ?>">
-      <label>Nama:<sup>*</sup></label>
-      <input type="text" name="nama" class="form-control" value="<?php echo $nama; ?>">
-      <span class="help-block"><?php echo $namaError; ?></span>
+<body class="login-page">
+  <div class="login-box">
+    <div class="logo">
+      <a href="../index.php">Jom<b>SWAP</b></a>
+      <small>Tukar Barangan Anda!</small>
     </div>
+    <div class="card">
+      <div class="body">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="sign_in" method="post" enctype="multipart/form-data">
+          <div class="msg">Isi butiran barangan anda</div>
 
-    <div class="form-group <?php echo (!empty($butiranError)) ? 'has-error' : ''; ?>">
-      <label>Butiran:<sup>*</sup></label>
-      <textarea name="butiran" class="form-control" cols="30" rows="5"><?php echo $butiran; ?></textarea>
-      <span class="help-block"><?php echo $butiranError; ?></span>
+          <div class="input-group <?php echo (!empty($namaError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">shopping_cart</i>
+            </span>
+            <div class="form-line">
+              <input type="text" class="form-control" name="nama" placeholder="Nama" value="<?php echo $nama; ?>" autofocus>
+            </div>
+            <span class="help-block"><?php echo $namaError; ?></span>
+          </div>
+
+          <div class="input-group <?php echo (!empty($butiranError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">more</i>
+            </span>
+            <div class="form-line">
+              <textarea name="butiran" class="form-control" cols="15" rows="3" placeholder="Butiran"><?php echo $butiran; ?></textarea>
+            </div>
+            <span class="help-block"><?php echo $butiranError; ?></span>
+          </div>
+
+          <div class="input-group <?php echo (!empty($kategoriError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">toc</i>
+            </span>
+            <select name="kategori" class="form-control show-tick" required>
+              <option disabled selected value style="display:none">Kategori</option>
+              <option>Pakaian</option>
+              <option>Aksesori</option>
+              <option>Kasut</option>
+              <option>Barangan Sukan</option>
+              <option>Barangan Elektronik</option>
+              <option>Games</option>
+              <option>Alat tulis</option>
+              <option>Buku</option>
+              <option>Makanan</option>
+              <option>Etc</option>
+            </select>
+            <span class="help-block"><?php echo $kategoriError; ?></span>
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="material-icons">add_a_photo</i>
+            </span>
+            <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" required>
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="material-icons">add_a_photo</i>
+            </span>
+            <input type="file" name="fileToUpload2" id="fileToUpload2" class="form-control" required>
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="material-icons">add_a_photo</i>
+            </span>
+            <input type="file" name="fileToUpload3" id="fileToUpload3" class="form-control" required>
+          </div>
+          
+          <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">TAMBAH</button>
+        </form>
+      </div>
     </div>
-
-    <div class="form-group <?php echo (!empty($kategoriError)) ? 'has-error' : ''; ?>">
-      <label>Kategori:<sup>*</sup></label>
-      <select name="kategori" class="form-control" required>
-        <option disabled selected value style="display:none"> -- pilih kategori -- </option>
-        <option>Pakaian</option>
-        <option>Aksesori</option>
-        <option>Kasut</option>
-        <option>Barangan Sukan</option>
-        <option>Barangan Elektronik</option>
-        <option>Games</option>
-        <option>Alat tulis</option>
-        <option>Buku</option>
-        <option>Makanan</option>
-        <option>Etc</option>
-      </select>
-      <span class="help-block"><?php echo $kategoriError; ?></span>
-    </div>
-
-    <div class="form-group">
-      <label>Gambar:<sup>*</sup></label>
-      <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" required>
-      <span class="help-block"><?php echo $emailError; ?></span>
-    </div>
-
-    <div class="form-group">
-      <input type="submit" class="btn btn-primary" value="Tambah">
-    </div>
-
-  </form>
-</div>
-<?php require '../php/hidebutton.php'; ?>
+  </div>
+  <!-- Jquery Core Js -->
+  <script src="../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap Core Js -->
+  <script src="../plugins/bootstrap/js/bootstrap.js"></script>
+  <!-- Waves Effect Plugin Js -->
+  <script src="../plugins/node-waves/waves.js"></script>
+  <!-- Validation Plugin Js -->
+  <script src="../plugins/jquery-validation/jquery.validate.js"></script>
+  <!-- Select Plugin Js -->
+  <script src="../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+  <!-- Custom Js -->
+  <script src="../js/admin.js"></script>
+  <script src="../js/pages/examples/sign-in.js"></script>
 </body>
+
 </html>

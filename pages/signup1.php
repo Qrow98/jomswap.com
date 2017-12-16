@@ -138,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           <div class="input-group">
             <span class="input-group-addon">
-              <i class="material-icons">insert_photo</i>
+              <i class="material-icons">add_a_photo</i>
             </span>
             <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" required>
           </div>

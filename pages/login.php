@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 echo $_SESSION['ic'];
 echo $_SESSION['email'];
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Check if password is empty
     if (empty(trim($_POST['password']))) {
-        $password_err = 'Please enter your password.';
+        $password_err = 'Sila masukkan kata laluan anda.';
     } else {
         $password = trim($_POST['password']);
     }
@@ -81,39 +81,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_close($link);
 }
 ?>
- 
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
-  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/main.css">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <title>Log Masuk | JomSwap</title>
+  <!-- Favicon-->
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+  <!-- Bootstrap Core Css -->
+  <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <!-- Waves Effect Css -->
+  <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+  <!-- Animation Css -->
+  <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+  <!-- Custom Css -->
+  <link href="../css/style.css" rel="stylesheet">
 </head>
-<body>
-<div class="wrapper">
-  <a href="../index.php"><h1 style="font-size:7vw">JomSwap!</h1></a>
-  <q cite="Me" style="font-size:3vw">One man's trash is another man's treasure.</q>
-  <br>
-  <br>
-  <h2>Log Masuk</h2>
-  <p>Sila isi butiran akaun anda untuk log masuk.</p>
-  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <div class="form-group <?php echo (!empty($emailError)) ? 'has-error' : ''; ?>">
-      <label>Email:<sup>*</sup></label>
-      <input type="text" name="email"class="form-control" value="<?php echo $email; ?>">
-      <span class="help-block"><?php echo $emailError; ?></span>
-    </div>    
-    <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-      <label>Kata laluan:<sup>*</sup></label>
-      <input type="password" name="password" class="form-control">
-      <span class="help-block"><?php echo $password_err; ?></span>
+
+<body class="login-page">
+  <div class="login-box">
+    <div class="logo">
+      <a href="../index.php">Jom<b>SWAP</b></a>
+      <small>Tukar Barangan Anda!</small>
     </div>
-    <div class="form-group">
-      <input type="submit" class="btn btn-primary" value="Masuk">
+    <div class="card">
+      <div class="body">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="sign_in" method="post">
+          <div class="msg">Isi butiran akaun anda untuk log masuk</div>
+
+          <div class="input-group <?php echo (!empty($emailError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">person</i>
+            </span>
+            <div class="form-line">
+              <input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>" autofocus>
+            </div>
+            <span class="help-block"><?php echo $emailError; ?></span>
+          </div>
+
+          <div class="input-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">lock</i>
+            </span>
+            <div class="form-line">
+              <input type="password" class="form-control" name="password" placeholder="Kata Laluan">
+            </div>
+            <span class="help-block"><?php echo $password_err; ?></span>
+          </div>
+          
+          <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">LOG MASUK</button>
+          <div class="m-t-25 m-b--5 align-center">
+            <a href="signup.php">Tiada Akaun? Daftar Sekarang!</a>
+          </div>
+        </form>
+      </div>
     </div>
-    <p>Tiada akaun? <a href="signup.php">Daftar sekarang!</a></p>
-  </form>
-</div>    
+  </div>
+  <!-- Jquery Core Js -->
+  <script src="../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap Core Js -->
+  <script src="../plugins/bootstrap/js/bootstrap.js"></script>
+  <!-- Waves Effect Plugin Js -->
+  <script src="../plugins/node-waves/waves.js"></script>
+  <!-- Validation Plugin Js -->
+  <script src="../plugins/jquery-validation/jquery.validate.js"></script>
+  <!-- Custom Js -->
+  <script src="../js/admin.js"></script>
+  <script src="../js/pages/examples/sign-in.js"></script>
 </body>
+
 </html>

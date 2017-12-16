@@ -1,16 +1,11 @@
-<?php
+﻿<?php
 session_start();
-echo $_SESSION['ic'];
-echo $_SESSION['email'];
 
-// Include config file
 require_once '../php/connect.php';
 
-// Define variables and initialize with empty values
 $ic = $email = $password = $confirm_password = $tarikhDaftar = "";
 $icError = $emailError= $password_err = $confirm_password_err = "";
  
-// Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate email
@@ -127,57 +122,99 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
- 
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JomSwap! - Pendaftaran</title>
-  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/main.css">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <title>Pendaftaran | JomSwap</title>
+  <!-- Favicon-->
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+  <!-- Bootstrap Core Css -->
+  <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <!-- Waves Effect Css -->
+  <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+  <!-- Animation Css -->
+  <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+  <!-- Custom Css -->
+  <link href="../css/style.css" rel="stylesheet">
 </head>
-<body>
-  <div class="wrapper">
-    <a href="../index.php"><h1   style="font-size:7vw">JomSwap!</h1></a>
-    <q cite="Me" style="font-size:3vw">One man's trash is     another man's treasure.</q>
-    <br>
-    <br>
-    <h2>Daftar Masuk</h2>
-    <p>Sila isi borang ini untuk membuat akaun.</p>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-      <div class="form-group <?php echo (!empty($icError)) ? 'has-error' : ''; ?>">
-        <label>No. IC:<sup>*</sup></label>
-        <input type="text" name="ic" class="form-control" value="<?php echo $ic; ?>">
-        <span class="help-block"><?php echo $icError; ?></span>
-      </div>
+<body class="signup-page">
+  <div class="signup-box">
+    <div class="logo">
+      <a href="../index.php">Jom<b>SWAP</b></a>
+      <small>Tukar Barangan Anda!</small>
+    </div>
+    <div class="card">
+      <div class="body">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="sign_up" method="post">
+          <div class="msg">Isi butiran anda ini untuk membuka akaun</div>
+          
+          <div class="input-group <?php echo (!empty($icError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">info</i>
+            </span>
+            <div class="form-line">
+              <input type="text" class="form-control" name="ic" placeholder="Nombor IC" value="<?php echo $ic; ?>" autofocus>
+            </div>
+            <span class="help-block"><?php echo $icError; ?></span>
+            <small>cth: 98061911XXXX</small>
+          </div>
 
-      <div class="form-group <?php echo (!empty($emailError)) ? 'has-error' : ''; ?>">
-        <label>Email:<sup>*</sup></label>
-        <input type="text" name="email" class="form-control" value="<?php echo $email; ?>">
-        <span class="help-block"><?php echo $emailError; ?></span>
-      </div>
+          <div class="input-group <?php echo (!empty($emailError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">email</i>
+            </span>
+            <div class="form-line">
+              <input type="email" class="form-control" name="email" placeholder="Email Address" value="<?php echo $email; ?>">
+            </div>
+            <span class="help-block"><?php echo $emailError; ?></span>
+          </div>
 
-      <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-        <label>Kata laluan:<sup>*</sup></label>
-        <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
-        <span class="help-block"><?php echo $password_err; ?></span>
-      </div>
+          <div class="input-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">lock</i>
+            </span>
+            <div class="form-line">
+              <input type="password" class="form-control" name="password" minlength="6" placeholder="Kata Laluan" value="<?php echo $password; ?>">
+            </div>
+            <span class="help-block"><?php echo $password_err; ?></span>
+          </div>
 
-      <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-        <label>Sahkan kata laluan:<sup>*</sup></label>
-        <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
-        <span class="help-block"><?php echo $confirm_password_err; ?></span>
-      </div>
-      
-      <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Hantar">
-        <input type="reset" class="btn btn-default" value="Reset">
-      </div>
+          <div class="input-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">lock</i>
+            </span>
+            <div class="form-line">
+              <input type="password" class="form-control" name="confirm_password" minlength="6" placeholder="Sahkan Kata Laluan" value="<?php echo $confirm_password; ?>">
+            </div>
+            <span class="help-block"><?php echo $confirm_password_err; ?></span>
+          </div>
 
-      <p>Sudah mempunyai akaun? <a href="login.php">Log masuk disini</a>.</p>
-    </form>
-  </div>    
+          <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">DAFTAR</button>
+          <div class="m-t-25 m-b--5 align-center">
+            <a href="login.php">Sudah Daftar? Log Masuk Di Sini!</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Jquery Core Js -->
+  <script src="../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap Core Js -->
+  <script src="../plugins/bootstrap/js/bootstrap.js"></script>
+  <!-- Waves Effect Plugin Js -->
+  <script src="../plugins/node-waves/waves.js"></script>
+  <!-- Validation Plugin Js -->
+  <script src="../plugins/jquery-validation/jquery.validate.js"></script>
+  <!-- Custom Js -->
+  <script src="../js/admin.js"></script>
+  <script src="../js/pages/examples/sign-up.js"></script>
 </body>
+
 </html>

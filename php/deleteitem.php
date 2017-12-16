@@ -1,7 +1,7 @@
 <?php
 require_once "connect.php";
 
-$idBarangan = $_POST['idBarangan'];
+$idBarangan = $_GET['idBarangan'];
 $sql = "DELETE FROM barangan WHERE idBarangan = '$idBarangan'";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_query($conn, $sql)) {

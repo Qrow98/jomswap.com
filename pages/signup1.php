@@ -1,7 +1,5 @@
-<?php
+﻿<?php
 session_start();
-echo $_SESSION['ic'];
-echo $_SESSION['email'];
 
 require_once '../php/connect.php';
 
@@ -64,60 +62,106 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_close($conn);
 }
 ?>
- 
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JomSwap! - Pendaftaran</title>
-  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/main.css">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <title>Pendaftaran | JomSwap</title>
+  <!-- Favicon-->
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+  <!-- Bootstrap Core Css -->
+  <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <!-- Waves Effect Css -->
+  <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+  <!-- Animation Css -->
+  <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+  <!-- Custom Css -->
+  <link href="../css/style.css" rel="stylesheet">
 </head>
-<body>
-  <div class="wrapper">
-    <a href="../index.php"><h1 style="font-size:7vw">JomSwap!</h1></a>
-    <h2>Anda hampir selesai!</h2>
-    <p>Isi butiran berikut.</p>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 
-      <div class="form-group <?php echo (!empty($namaError)) ? 'has-error' : ''; ?>">
-        <label>Nama:<sup>*</sup></label>
-        <input type="text" name="name" class="form-control" value="<?php echo $nama; ?>">
-        <span class="help-block"><?php echo $namaError; ?></span>
-      </div>
-      
-      <div class="form-group <?php echo (!empty($genderError)) ? 'has-error' : ''; ?>">
-        <label>Jantina:<sup>*</sup></label>
-        <input type="radio" name="gender" value="lelaki"> Lelaki
-        <input type="radio" name="gender" value="perempuan"> Perempuan
-        <span class="help-block"><?php echo $genderError;?></span>
-      </div>
+<body class="signup-page">
+  <div class="signup-box">
+    <div class="logo">
+      <a href="../index.php">Jom<b>SWAP</b></a>
+      <small>Tukar Barangan Anda!</small>
+    </div>
+    <div class="card">
+      <div class="body">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="sign_up" method="post" enctype="multipart/form-data">
+          <div class="msg">Anda hampir selesai!</div>
 
-      <div class="form-group <?php echo (!empty($noTelError)) ? 'has-error' : ''; ?>">
-        <label>No. Telefon:<sup>*</sup></label>
-        <input type="text" name="noTel" class="form-control" value="<?php echo $noTel; ?>">
-        <span class="help-block"><?php echo $noTelError; ?></span>
-      </div>
+          <div class="input-group <?php echo (!empty($namaError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">person</i>
+            </span>
+            <div class="form-line">
+              <input type="text" class="form-control" name="name" placeholder="Nama Penuh" value="<?php echo $nama; ?>" autofocus>
+            </div>
+            <span class="help-block"><?php echo $namaError; ?></span>
+          </div>
 
-      <div class="form-group <?php echo (!empty($alamatError)) ? 'has-error' : ''; ?>">
-        <label>Alamat:<sup>*</sup></label>
-        <textarea name="alamat" class="form-control" cols="30" rows="5"><?php echo $alamat; ?></textarea>
-        <span class="help-block"><?php echo $alamatError; ?></span>
-      </div>
+          <div class="input-group <?php echo (!empty($genderError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">wc</i>
+            </span>
+            <input type="radio" name="gender" id="male" class="with-gap" value="Lelaki">
+            <label for="male">Lelaki</label>
+            <input type="radio" name="gender" id="female" class="with-gap" value="Perempuan">
+            <label for="female" class="m-l-10">Perempuan</label>
+            <span class="help-block"><?php echo $genderError;?></span>
+          </div>
 
-      <div class="form-group">
-        <label>Gambar Profile:<sup>*</sup></label>
-        <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" required>
-        <span class="help-block"><?php echo $emailError; ?></span>
-      </div>
+          <div class="input-group <?php echo (!empty($noTelError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">phone_iphone</i>
+            </span>
+            <div class="form-line">
+              <input type="text" class="form-control" name="noTel" placeholder="Nombor Telefon" value="<?php echo $noTel; ?>">
+            </div>
+            <span class="help-block"><?php echo $noTelError; ?></span>
+          </div>
 
-      <div class="form-group">
-        <input type="submit" name="submit" class="btn btn-primary" value="Hantar">
-        <input type="reset" class="btn btn-default" value="Reset">
-      </div>
+          <div class="input-group <?php echo (!empty($alamatError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">home</i>
+            </span>
+            <div class="form-line">
+              <textarea name="alamat" class="form-control" cols="15" rows="3" placeholder="Alamat"><?php echo $alamat; ?></textarea>
+            </div>
+            <span class="help-block"><?php echo $alamatError; ?></span>
+          </div>
 
-    </form>
-  </div>    
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="material-icons">add_a_photo</i>
+            </span>
+            <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" required>
+          </div>
+
+          <button class="btn btn-block btn-lg bg-pink waves-effect" name="submit" type="submit">DAFTAR</button>
+          <div class="m-t-25 m-b--5 align-center">
+            <a href="login.php">Sudah Daftar? Log Masuk Di Sini!</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Jquery Core Js -->
+  <script src="../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap Core Js -->
+  <script src="../plugins/bootstrap/js/bootstrap.js"></script>
+  <!-- Waves Effect Plugin Js -->
+  <script src="../plugins/node-waves/waves.js"></script>
+  <!-- Validation Plugin Js -->
+  <script src="../plugins/jquery-validation/jquery.validate.js"></script>
+  <!-- Custom Js -->
+  <script src="../js/admin.js"></script>
+  <script src="../js/pages/examples/sign-up.js"></script>
 </body>
+
 </html>

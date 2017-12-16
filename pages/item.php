@@ -127,7 +127,6 @@ if ($result = mysqli_query($conn, $sql)) {
   <link href="../css/themes/all-themes.css" rel="stylesheet" />
   <script src="../plugins/jquery/jquery.min.js"></script>
   <script src="../js/hiding.js"></script>
-  <script src="../js/buttons.js"></script>
   <script src="../js/popup.js"></script>
 </head>
 <body class="theme-cyan">
@@ -225,77 +224,122 @@ if (isset($_SESSION['email'])) {
   <!-- main content -->
   <section class="content">
     <div class="container-fluid">
-      <div class="block-header">
-        <h2>BARANGAN</h2>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="card">
+          <div class="header bg-cyan">
+            <h2><?php echo $namaBarangan; ?></h2>
+          </div>
+          <div class="body">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+              </ol>
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <img src="<?php echo $gambarBarangan; ?>">
+                </div>
+                <div class="item">
+                  <img src="<?php echo $gambarBarangan; ?>">
+                </div>
+                <div class="item">
+                  <img src="<?php echo $gambarBarangan; ?>">
+                </div>
+              </div>
+              <!-- Controls -->
+              <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="row clearfix">
-              <h2><?php echo $namaBarangan; ?></h2>
-              <button class="btn btn-primary" id="btnEdit">Edit</button>
-              <div id="btnDelete">
-                <form action="../php/deleteitem.php" method='post'>
-                  <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">
-                  <input type="submit" class="btn btn-primary del" value="Padam">
-                </form>
+      <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h2>
+              Butiran Barangan
+            </h2>
+            <ul class="header-dropdown m-r--5">
+              <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">more_vert</i>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                  <li><a id="btnEdit">Edit</a></li>
+                  <li><a href="../php/deleteitem.php?idBarangan=<?php echo $idBarangan; ?>">Padam Barangan</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="body">
+            <!-- start details -->
+          <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">
+            <div class="form-group upload hid">
+              <label>Gambar:</label>
+              <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+            </div>
+            <br>
+            <div class="form-group <?php echo (!empty($butiranError)) ? 'has-error' : ''; ?>">
+              <label>Butiran:</label>
+              <textarea name="butiran" class="form-control" cols="30" rows="5" readonly><?php echo $butiranBarangan; ?></textarea>
+              <span class="help-block"><?php echo $butiranError; ?></span>
+            </div>
+            <div class="form-group">
+              <label>Kategori:</label>
+              <input type="" name="kategori" class="form-control" value="<?php echo $kategoriBarangan; ?>" readonly>
+            </div>
+            <div class="form-group">
+              <label>Tarikh Muat Naik:</label>
+              <input type="" name="tarikh" class="form-control" value="<?php echo $tarikhMuatNaik; ?>" readonly>
+            </div>
+            <div class="form-group">
+              <label>Pemilik:</label>
+              <input type="" name="pemilik" class="form-control" value="<?php echo $noIC; ?>" readonly>
+            </div>
+            <div class="form-group hid">
+              <input type="submit" class="btn btn-primary" value="Hantar">
+            </div>
+          </form>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btnExchange">Tukar</button>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Pilih barangan untuk ditukar</h4>
+                </div>
+                <div class="modal-body">
+                  <form action="../php/trade.php" method="post">
+                  <input type="hidden" name="idBaranganOwner" value="<?php echo $idBarangan; ?>">
+                  <select name="idBaranganRequester" required>
+                    <?php echo $options;?>
+                    <option disabled selected value style="display:none"> -- pilih barangan -- </option>
+                  </select>
+                  <p>Tiada barangan? <a href="additem.php">Tambah di sini!</a></p>
+                </div>
+                <div class="modal-footer">
+                  <input type="submit" value="Tukar" class="btn btn-primary tukar">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
+                  </form>
+                </div>
               </div>
-              <br>
-              <img src="<?php echo $gambarBarangan; ?>" style='max-width:40%;height:auto;'>
-              <br>
-              <br>
-              <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-              <input type="hidden" name="idBarangan" value="<?php echo $idBarangan; ?>">
-                <div class="form-group upload hid">
-                  <label>Gambar:</label>
-                  <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
-                </div>
-                <br>
-                <div class="form-group <?php echo (!empty($butiranError)) ? 'has-error' : ''; ?>">
-                  <label>Butiran:</label>
-                  <textarea name="butiran" class="form-control" cols="30" rows="5" readonly><?php echo $butiranBarangan; ?></textarea>
-                  <span class="help-block"><?php echo $butiranError; ?></span>
-                </div>
-                <div class="form-group">
-                  <label>Kategori:</label>
-                  <input type="" name="kategori" class="form-control" value="<?php echo $kategoriBarangan; ?>" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Tarikh Muat Naik:</label>
-                  <input type="" name="tarikh" class="form-control" value="<?php echo $tarikhMuatNaik; ?>" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Pemilik:</label>
-                  <input type="" name="pemilik" class="form-control" value="<?php echo $noIC; ?>" readonly>
-                </div>
-                <div class="form-group hid">
-                  <input type="submit" class="btn btn-primary" value="Hantar">
-                </div>
-              </form>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btnExchange">Tukar</button>
-              <!-- Modal -->
-              <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-                  <!-- Modal content-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Pilih barangan untuk ditukar</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form action="../php/trade.php" method="post">
-                      <input type="hidden" name="idBaranganOwner" value="<?php echo $idBarangan; ?>">
-                      <select name="idBaranganRequester" required>
-                        <?php echo $options;?>
-                        <option disabled selected value style="display:none"> -- pilih barangan -- </option>
-                      </select>
-                      <p>Tiada barangan? <a href="additem.php">Tambah di sini!</a></p>
-                    </div>
-                    <div class="modal-footer">
-                      <input type="submit" value="Tukar" class="btn btn-primary tukar">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            </div>
+          </div>
+        <!-- end details -->
+          </div>
+        </div>
       </div>
     </div>
   </section>

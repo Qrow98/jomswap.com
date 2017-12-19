@@ -178,9 +178,9 @@ if ($result = mysqli_query($conn, $sql)) {
           <!-- #END# Call Search -->
 <?php
 if (isset($_SESSION['email'])) {
-  echo "
-  <li><a href='../pages/additem.php' type='button' data-toggle='tooltip' data-placement='bottom' title='Tambah  Barangan' class='material-icons'>add</i></a></li>
-  ";
+    echo "
+    <li><a href='../pages/additem.php' type='button' data-toggle='tooltip' data-placement='bottom' title='Tambah    Barangan' class='material-icons'>add</i></a></li>
+    ";
 }
 ?>
         </ul>
@@ -201,7 +201,7 @@ if (isset($_SESSION['email'])) {
         <ul class="list">
           <li class="header">MENU UTAMA</li>
           <li class="active">
-            <a href="index.php">
+            <a href="../index.php">
               <i class="material-icons">home</i>
               <span>Laman Utama</span>
             </a>
@@ -270,17 +270,23 @@ if (isset($_SESSION['email'])) {
             <h2>
               Butiran Barangan
             </h2>
-            <ul class="header-dropdown m-r--5">
-              <li class="dropdown">
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">more_vert</i>
-                </a>
-                <ul class="dropdown-menu pull-right">
-                  <li><a id="btnEdit">Edit</a></li>
-                  <li><a href="../php/deleteitem.php?idBarangan=<?php echo $idBarangan; ?>">Padam Barangan</a></li>
-                </ul>
-              </li>
-            </ul>
+<?php
+if (isset($_SESSION['ic'])) {
+    echo "
+    <ul class='header-dropdown m-r--5'>
+      <li class='dropdown'>
+        <a href='javascript:void(0);' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>
+          <i class='material-icons'>more_vert</i>
+        </a>
+        <ul class='dropdown-menu pull-right'>
+          <li><a id='btnEdit'>Edit</a></li>
+          <li><a href='../php/deleteitem.php?idBarangan=<?php echo $idBarangan; ?>'>Padam Barangan</a></li>
+        </ul>
+      </li>
+    </ul>
+    ";
+}
+?>
           </div>
           <div class="body">
             <!-- start details -->

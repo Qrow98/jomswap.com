@@ -5,8 +5,8 @@ require_once '../php/connect.php';
 
 // Define variables and initialize with empty values
 $ic = $_SESSION['ic'];
-$nama = $noTel = $alamat = $gender = "";
-$namaError = $noTelError = $alamatError = $genderError = "";
+$nama = $noTel = $alamat = $gender = $tarikh = "";
+$namaError = $noTelError = $alamatError = $genderError = $tarikhError = "";
  
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,10 +18,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nama = trim($_POST["name"]);
     }
 
+    // jantina
     if (empty(trim($_POST["gender"]))) {
         $genderError = "Sila pilih jantina anda.";
     } else {
         $gender = trim($_POST["gender"]);
+    }
+
+    // tarikhLahir new
+    if (empty(trim($_POST["tarikh"]))) {
+        $tarikhError = "Sila isi tarikh lahir anda.";
+    } else {
+        $tarikh = trim($_POST["tarikh"]);
     }
 
     // Validate no telefon
@@ -36,6 +44,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $alamatError = "Sila masukkan Alamat anda.";
     } else {
         $alamat = trim($_POST["alamat"]);
+    }
+
+    // Validate negeri new
+    if (empty(trim($_POST["state"]))) {
+        $alamatError = "Sila masukkan Negeri anda.";
+    } else {
+        $alamat = trim($_POST["state"]);
+    }
+
+    // Validate bandar new
+    if (empty(trim($_POST["city"]))) {
+        $alamatError = "Sila masukkan Bandar anda.";
+    } else {
+        $alamat = trim($_POST["city"]);
+    }
+
+    // Validate poskod new
+    if (empty(trim($_POST["postcode"]))) {
+        $alamatError = "Sila masukkan Poskod anda.";
+    } else {
+        $alamat = trim($_POST["postcode"]);
     }
 
     // Profile picture
@@ -78,6 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
   <!-- Waves Effect Css -->
   <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+  <!-- Bootstrap Material Datetime Picker Css -->
+  <link href="../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
   <!-- Animation Css -->
   <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
   <!-- Custom Css -->
@@ -114,6 +145,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="radio" name="gender" id="female" class="with-gap" value="Perempuan">
             <label for="female" class="m-l-10">Perempuan</label>
             <span class="help-block"><?php echo $genderError;?></span>
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="material-icons">date_range</i>
+            </span>
+            <div class="form-line">
+              <input type="text" class="datepicker form-control" name="tarikh" placeholder="Birthday">
+            </div>
           </div>
 
           <div class="input-group <?php echo (!empty($noTelError)) ? 'has-error' : ''; ?>">
@@ -155,6 +195,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script src="../plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap Core Js -->
   <script src="../plugins/bootstrap/js/bootstrap.js"></script>
+  <!-- Moment Plugin Js -->
+  <script src="../plugins/momentjs/moment.js"></script>
+  <!-- Bootstrap Material Datetime Picker Plugin Js -->
+  <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
   <!-- Waves Effect Plugin Js -->
   <script src="../plugins/node-waves/waves.js"></script>
   <!-- Validation Plugin Js -->
@@ -162,6 +206,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- Custom Js -->
   <script src="../js/admin.js"></script>
   <script src="../js/pages/examples/sign-up.js"></script>
+  <script src="../js/basic-form-elements.js"></script>
+
+  <!-- Demo Js -->
+  <script src="../js/demo.js"></script>
 </body>
 
 </html>

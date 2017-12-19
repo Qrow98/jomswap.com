@@ -33,21 +33,21 @@ $idPertukaran = $_GET['idPertukaran'];
 
 $sql = "SELECT *
 FROM pertukaran t
-JOIN barangan t1 ON t1.idBarangan = t.idBaranganOwner LEFT JOIN pelajar t3 ON t3.noIC = t1.noIC
-JOIN barangan t2 ON t2.idBarangan = t.idBaranganRequester
-WHERE idPertukaran = $idPertukaran";
+JOIN barangan t1 ON t1.idBarangan = t.idBaranganOwner 
+JOIN barangan t2 ON t2.idBarangan = t.idBaranganRequester LEFT JOIN pelajar t3 ON t3.noIC = t2.noIC
+WHERE idPertukaran = $idPertukaran AND t1.noIC = '$ic'";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_array($result)) {
             echo "
             ********** RESIT PERTUKARAN **********
             <br><br>
-            BARANGAN 1 <span style='display:inline-block; width:180px;'></span> " . $row['namaBarangan'] . "<br>
-            PEMILIK <span style='display:inline-block; width:162px;'></span> " . $nama . "<br>            
-            BARANGAN 2 <span style='display:inline-block; width:180px;'></span> " . $row[7] . "<br>
-            PEMILIK <span style='display:inline-block; width:162px;'></span> " . $row[16] . "<br>
-            TARIKH <span style='display:inline-block; width:180px;'></span> " . $row['tarikhPertukaran'] . "<br>
-            STATUS <span style='display:inline-block; width:197px;'></span> " . $row['statusPertukaran'] . "
+            Barangan Anda ------------ " . $row[7] . "<br>
+            Pemilik ------------------ " . $nama . "<br>            
+            Barangan Diminta --------- " . $row['namaBarangan'] . "<br>
+            Pemilik ------------------ " . $row[25] . "<br>
+            Tarikh ------------------- " . $row['tarikhPertukaran'] . "<br>
+            Status ------------------- " . $row['statusPertukaran'] . "
             <br><br>
             ********** RESIT PERTUKARAN **********
 

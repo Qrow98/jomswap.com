@@ -182,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           <div class="input-group <?php echo (!empty($cityError)) ? 'has-error' : ''; ?>">
             <span class="input-group-addon">
-              <i class="material-icons">home</i>
+              <i class="material-icons">flight_takeoff</i>
             </span>
             <div class="form-line">
               <input type="text" class="form-control" name="city" placeholder="Bandar" value="<?php echo $city; ?>">
@@ -192,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           <div class="input-group <?php echo (!empty($postcodeError)) ? 'has-error' : ''; ?>">
             <span class="input-group-addon">
-              <i class="material-icons">home</i>
+              <i class="material-icons">code</i>
             </span>
             <div class="form-line">
               <input type="number" class="form-control" name="postcode" placeholder="Poskod" value="<?php echo $postcode; ?>">
@@ -202,7 +202,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           <div class="input-group <?php echo (!empty($stateError)) ? 'has-error' : ''; ?>">
             <span class="input-group-addon">
-              <i class="material-icons">home</i>
+              <i class="material-icons">language</i>
             </span>
             <select name="state" class="form-control show-tick" required>
               <option disabled selected value style="display:none">Negeri</option>

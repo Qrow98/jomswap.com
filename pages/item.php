@@ -127,6 +127,8 @@ if ($result = mysqli_query($conn, $sql)) {
   <!-- Custom Css -->
   <link href="../css/style.css" rel="stylesheet">
   <link href="../css/themes/all-themes.css" rel="stylesheet" />
+  <!-- Bootstrap Select Css -->
+  <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
   <script src="../plugins/jquery/jquery.min.js"></script>
   <script src="../js/hiding.js"></script>
   <script src="../js/popup.js"></script>
@@ -350,10 +352,12 @@ mysqli_close($conn);
                 <div class="modal-body">
                   <form action="../php/trade.php" method="post">
                     <input type="hidden" name="idBaranganOwner" value="<?php echo $idBarangan; ?>">
-                    <select name="idBaranganRequester" required>
-                      <?php echo $options;?>
-                      <option disabled selected value style="display:none"> -- pilih barangan -- </option>
-                    </select>
+                    <div class="input-group">
+                      <select name="idBaranganRequester" class="form-control show-tick" required>
+                        <option disabled selected value style="display:none">Pilih Barangan</option>
+                        <?php echo $options;?>
+                      </select>
+                    </div>
                     <p>Tiada barangan? <a href="additem.php">Tambah di sini!</a></p>
                 </div>
                 <div class="modal-footer">
@@ -382,6 +386,8 @@ mysqli_close($conn);
   <script src="../plugins/node-waves/waves.js"></script>
   <!-- Jquery CountTo Plugin Js -->
   <script src="../plugins/jquery-countto/jquery.countTo.js"></script>
+  <!-- Select Plugin Js -->
+  <script src="../plugins/bootstrap-select/js/bootstrap-select.js"></script>
   <!-- Custom Js -->
   <script src="../js/admin.js"></script>
   <script src="../js/pages/index.js"></script>

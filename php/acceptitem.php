@@ -7,7 +7,7 @@ if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_query($conn, $sql)) {
         echo "<script>",
         "alert('Pertukaran berjaya. Sila cetak resit untuk pengesahan.');",
-        "window.location.href='../pages/receipt.php?idPertukaran=".$idPertukaran."';",
+        "window.location.href='../pages/receiptOwner.php?idPertukaran=".$idPertukaran."';",
         "</script>";
     } else {
         echo "Ralat dikesan. Sila cuba sebentar lagi.";

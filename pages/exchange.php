@@ -207,7 +207,7 @@ if ($result = mysqli_query($conn, $sql)) {
                 </a>
                 <br>                
                 <br>                
-                <a href='../php/declineitem.php?idPertukaran=" . $row['idPertukaran'] . "'>
+                <a href='../php/declineitem.php?idPertukaran=" . $row['idPertukaran'] . "&idBaranganOwner=" . $row['idBaranganOwner'] . "&idBaranganRequester=" . $row['idBaranganRequester'] . "'>
                   <button class='btn btn-primary'>TOLAK</button>
                 </a>
               </td>
@@ -253,8 +253,8 @@ if ($result = mysqli_query($conn, $sql)) {
               <th>#</th>
               <th>BARANGAN ANDA</th>
               <th>BARANGAN DIMINTA</th>
-              <th>TARIKH</th>
               <th>PEMILIK</th>
+              <th>TARIKH</th>
               <th>STATUS</th>
               <th>TINDAKAN</th>
             </tr>
@@ -278,8 +278,8 @@ if ($result = mysqli_query($conn, $sql)) {
                 </div>
                 Nama: <b>" . $row[7] . "</b>                
               </td>
+              <td>" . $row[16] . "</td>              
               <td>" . $row['tarikhPertukaran'] . "</td>
-              <td>" . $row[16] . "</td>
               <td>" . $row['statusPertukaran'] . "</td>              
               <td>
                 <a href='item.php?idBarangan=" . $row[6] . "'>
@@ -316,8 +316,8 @@ if ($result = mysqli_query($conn, $sql)) {
           <div class="card">
             <div class="header bg-cyan">
               <h2>
-                Permintaan Dahulu
-                <small>Semua permintaan yang lepas.</small>
+                Permintaan Berjaya (Might be broken)
+                <small>Permintaan yang berjaya.</small>
               </h2>
             </div>
             <div class="body table-responsive">
@@ -328,70 +328,7 @@ $sql = "SELECT *
 FROM pertukaran t
 JOIN barangan t1 ON t1.idBarangan = t.idBaranganOwner 
 JOIN barangan t2 ON t2.idBarangan = t.idBaranganRequester LEFT JOIN pelajar t3 ON t3.noIC = t2.noIC
-WHERE t1.noIC = '$ic' ";
-if ($result = mysqli_query($conn, $sql)) {
-    if (mysqli_num_rows($result) > 0) {
-        echo "
-        <table class='table table-hover'>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>BARANGAN ANDAAAAAA</th>
-              <th>BARANGAN YANG DITUKAR</th>
-              <th>PEMILIK</th>
-              <th>TARIKH</th>
-              <th>STATUS</th>
-              <th>TINDAKAN</th>
-            </tr>
-          </thead>
-          <tbody>
-        ";
-        while ($row = mysqli_fetch_array($result)) {
-            // $row[7] = 'is namaBarangan';
-            echo "
-            <tr class='clickable-rows'>
-              <th scope='row'>" . $num . "</th>
-              <td>
-                <div class='image'>
-                  <img src='" . $row[11] . "' class='img-responsive thumbnail' style='max-height:200px;'>
-                </div>
-                Nama: <b>" . $row[7] . "</b>                
-              </td>
-              <td>
-                <div class='image'>
-                  <img src='" . $row['gambarBarangan'] . "' class='img-responsive thumbnail' style='max-height:200px;'>
-                </div>
-                Nama: <b>" . $row['namaBarangan'] . "</b>                
-              </td>
-              <td>" . $row[25] . "</td>
-              <td>" . $row['tarikhPertukaran'] . "</td>
-              <td>" . $row['statusPertukaran'] . "</td>              
-              <td>
-                <a href='item.php?idBarangan=" . $row[15] . "'>
-                  <button class='btn btn-primary'>LIHAT</button>
-                </a>
-                <br><br>
-                <a href='receiptOwner.php?idPertukaran=" . $row['idPertukaran'] . "'>
-                  <button class='btn btn-primary'>CETAK RESIT</button>
-                </a>
-              </td>
-            </tr>
-            ";
-            $num++;
-        }
-        echo "
-          </tbody>
-        </table>
-        ";
-        mysqli_free_result($result);
-    } else {
-        // requester
-        $num = 1;
-$sql = "SELECT *
-FROM pertukaran t
-JOIN barangan t1 ON t1.idBarangan = t.idBaranganOwner LEFT JOIN pelajar t3 ON t3.noIC = t1.noIC
-JOIN barangan t2 ON t2.idBarangan = t.idBaranganRequester 
-WHERE t2.noIC = '$ic' AND statusPertukaran = 'Diterima'";
+WHERE t1.noIC = '$ic' AND statusPertukaran = 'Diterima'";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
         echo "
@@ -416,25 +353,25 @@ if ($result = mysqli_query($conn, $sql)) {
               <th scope='row'>" . $num . "</th>
               <td>
                 <div class='image'>
+                  <img src='" . $row[12] . "' class='img-responsive thumbnail' style='max-height:200px;'>
+                </div>
+                Nama: <b>" . $row[7] . "</b>                
+              </td>
+              <td>
+                <div class='image'>
                   <img src='" . $row['gambarBarangan'] . "' class='img-responsive thumbnail' style='max-height:200px;'>
                 </div>
                 Nama: <b>" . $row['namaBarangan'] . "</b>                
               </td>
-              <td>
-                <div class='image'>
-                  <img src='" . $row[11] . "' class='img-responsive thumbnail' style='max-height:200px;'>
-                </div>
-                Nama: <b>" . $row[7] . "</b>                
-              </td>
-              <td>" . $row[16] . "</td>
+              <td>" . $row['namaPelajar'] . "</td>
               <td>" . $row['tarikhPertukaran'] . "</td>
               <td>" . $row['statusPertukaran'] . "</td>              
               <td>
-                <a href='item.php?idBarangan=" . $row['idBaranganOwner'] . "'>
+                <a href='item.php?idBarangan=" . $row['idBaranganRequester'] . "'>
                   <button class='btn btn-primary'>LIHAT</button>
                 </a>
                 <br><br>
-                <a href='receiptRequester.php?idPertukaran=" . $row['idPertukaran'] . "'>
+                <a href='receiptOwner.php?idPertukaran=" . $row['idPertukaran'] . "'>
                   <button class='btn btn-primary'>CETAK RESIT</button>
                 </a>
               </td>
@@ -448,9 +385,209 @@ if ($result = mysqli_query($conn, $sql)) {
         ";
         mysqli_free_result($result);
     } else {
-        echo "Tiada pertukaran.";
+        // requester
+        $num = 1;
+        $sql = "SELECT *
+        FROM pertukaran t
+        JOIN barangan t1 ON t1.idBarangan = t.idBaranganOwner LEFT JOIN pelajar t3 ON t3.noIC = t1.noIC
+        JOIN barangan t2 ON t2.idBarangan = t.idBaranganRequester 
+        WHERE t2.noIC = '$ic' AND statusPertukaran = 'Diterima'";
+        if ($result = mysqli_query($conn, $sql)) {
+            if (mysqli_num_rows($result) > 0) {
+                echo "
+                <table class='table table-hover'>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>BARANGAN ANDA</th>
+                      <th>BARANGAN YANG DITUKAR</th>
+                      <th>PEMILIK</th>
+                      <th>TARIKH</th>
+                      <th>STATUS</th>
+                      <th>TINDAKAN</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                ";
+                while ($row = mysqli_fetch_array($result)) {
+                    // $row[7] = 'is namaBarangan';
+                    echo "
+                    <tr class='clickable-rows'>
+                      <th scope='row'>" . $num . "</th>
+                      <td>
+                        <div class='image'>
+                          <img src='" . $row['gambarBarangan'] . "' class='img-responsive thumbnail'        style='max-height:200px;'>
+                        </div>
+                        Nama: <b>" . $row['namaBarangan'] . "</b>                
+                      </td>
+                      <td>
+                        <div class='image'>
+                          <img src='" . $row[12] . "' class='img-responsive thumbnail' style='max-height:200px;'>
+                        </div>
+                        Nama: <b>" . $row[7] . "</b>                
+                      </td>
+                      <td>" . $row['namaPelajar'] . "</td>
+                      <td>" . $row['tarikhPertukaran'] . "</td>
+                      <td>" . $row['statusPertukaran'] . "</td>              
+                      <td>
+                        <a href='item.php?idBarangan=" . $row['idBaranganOwner'] . "'>
+                          <button class='btn btn-primary'>LIHAT</button>
+                        </a>
+                        <br><br>
+                        <a href='receiptRequester.php?idPertukaran=" . $row['idPertukaran'] . "'>
+                          <button class='btn btn-primary'>CETAK RESIT</button>
+                        </a>
+                      </td>
+                    </tr>
+                    ";
+                    $num++;
+                }
+                echo "
+                  </tbody>
+                </table>
+                ";
+                mysqli_free_result($result);
+            } else {
+                echo "Tiada pertukaran.";
+            }
+        }
     }
 }
+?>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="header bg-cyan">
+              <h2>
+                Permintaan Gagal (Might be broken)
+                <small>Permintaan yang gagal.</small>
+              </h2>
+            </div>
+            <div class="body table-responsive">
+<?php
+$num = 1;
+$sql = "SELECT *
+FROM pertukaran t
+JOIN barangan t1 ON t1.idBarangan = t.idBaranganOwner 
+JOIN barangan t2 ON t2.idBarangan = t.idBaranganRequester LEFT JOIN pelajar t3 ON t3.noIC = t2.noIC
+WHERE t1.noIC = '$ic' AND statusPertukaran = 'Ditolak'";
+if ($result = mysqli_query($conn, $sql)) {
+    if (mysqli_num_rows($result) > 0) {
+        echo "
+        <table class='table table-hover'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>BARANGAN ANDA</th>
+              <th>BARANGAN YANG DITUKAR</th>
+              <th>PEMILIK</th>
+              <th>TARIKH</th>
+              <th>STATUS</th>
+              <th>TINDAKAN</th>
+            </tr>
+          </thead>
+          <tbody>
+        ";
+        while ($row = mysqli_fetch_array($result)) {
+            // $row[7] = 'is namaBarangan';
+            echo "
+            <tr class='clickable-rows'>
+              <th scope='row'>" . $num . "</th>
+              <td>
+                <div class='image'>
+                  <img src='" . $row[12] . "' class='img-responsive thumbnail' style='max-height:200px;'>
+                </div>
+                Nama: <b>" . $row[7] . "</b>                
+              </td>
+              <td>
+                <div class='image'>
+                  <img src='" . $row['gambarBarangan'] . "' class='img-responsive thumbnail' style='max-height:200px;'>
+                </div>
+                Nama: <b>" . $row['namaBarangan'] . "</b>                
+              </td>
+              <td>" . $row['namaPelajar'] . "</td>
+              <td>" . $row['tarikhPertukaran'] . "</td>
+              <td>" . $row['statusPertukaran'] . "</td>              
+              <td>
+                <a href='item.php?idBarangan=" . $row['idBaranganRequester'] . "'>
+                  <button class='btn btn-primary'>LIHAT</button>
+                </a>
+              </td>
+            </tr>
+            ";
+            $num++;
+        }
+        echo "
+          </tbody>
+        </table>
+        ";
+        mysqli_free_result($result);
+    } else {
+        // requester
+        $num = 1;
+        $sql = "SELECT *
+        FROM pertukaran t
+        JOIN barangan t1 ON t1.idBarangan = t.idBaranganOwner LEFT JOIN pelajar t3 ON t3.noIC = t1.noIC
+        JOIN barangan t2 ON t2.idBarangan = t.idBaranganRequester 
+        WHERE t2.noIC = '$ic' AND statusPertukaran = 'Ditolak'";
+        if ($result = mysqli_query($conn, $sql)) {
+            if (mysqli_num_rows($result) > 0) {
+                echo "
+                <table class='table table-hover'>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>BARANGAN ANDA</th>
+                      <th>BARANGAN YANG DITUKAR</th>
+                      <th>PEMILIK</th>
+                      <th>TARIKH</th>
+                      <th>STATUS</th>
+                      <th>TINDAKAN</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                ";
+                while ($row = mysqli_fetch_array($result)) {
+                    // $row[7] = 'is namaBarangan';
+                    echo "
+                    <tr class='clickable-rows'>
+                      <th scope='row'>" . $num . "</th>
+                      <td>
+                        <div class='image'>
+                          <img src='" . $row['gambarBarangan'] . "' class='img-responsive thumbnail'        style='max-height:200px;'>
+                        </div>
+                        Nama: <b>" . $row['namaBarangan'] . "</b>                
+                      </td>
+                      <td>
+                        <div class='image'>
+                          <img src='" . $row[12] . "' class='img-responsive thumbnail' style='max-height:200px;'>
+                        </div>
+                        Nama: <b>" . $row[7] . "</b>                
+                      </td>
+                      <td>" . $row['namaPelajar'] . "</td>
+                      <td>" . $row['tarikhPertukaran'] . "</td>
+                      <td>" . $row['statusPertukaran'] . "</td>              
+                      <td>
+                        <a href='item.php?idBarangan=" . $row['idBaranganOwner'] . "'>
+                          <button class='btn btn-primary'>LIHAT</button>
+                        </a>
+                        <br><br>
+                      </td>
+                    </tr>
+                    ";
+                    $num++;
+                }
+                echo "
+                  </tbody>
+                </table>
+                ";
+                mysqli_free_result($result);
+            } else {
+                echo "Tiada pertukaran.";
+            }
+        }
     }
 }
 mysqli_close($conn);

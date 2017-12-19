@@ -194,7 +194,7 @@ if ($result = mysqli_query($conn, $sql)) {
                 <a href='../php/deleteitem.php?idBarangan=" . $row['idBarangan'] . "'>
                   <button class='btn btn-primary del'>PADAM BARANGAN</button>
                 </a>
-                <br>
+                <br><br>
                 <a href='item.php?idBarangan=" . $row['idBarangan'] . "'>
                   <button class='btn btn-primary'>LIHAT</button>
                 </a>

@@ -17,7 +17,8 @@ if (isset($_GET['idBarangan']) && !empty(trim($_GET['idBarangan']))) {
                 $butiranBarangan = $row['butiranBarangan'];
                 $kategoriBarangan = $row['kategoriBarangan'];
                 $tarikhMuatNaik = $row['tarikhMuatNaik'];
-                $noIC = $row['namaPelajar'];
+                $namaPelajar = $row['namaPelajar'];
+                $noIC = $row['noIC'];
             }
             mysqli_free_result($result);
         } else {
@@ -273,7 +274,7 @@ if (isset($_SESSION['email'])) {
               Butiran Barangan
             </h2>
 <?php
-if (isset($_SESSION['ic'])) {
+if ($_SESSION['ic'] == $noIC) {
     echo "
     <ul class='header-dropdown m-r--5'>
       <li class='dropdown'>
@@ -313,7 +314,7 @@ if (isset($_SESSION['ic'])) {
             </div>
             <div class="form-group">
               <label>Pemilik:</label>
-              <input type="" name="pemilik" class="form-control" value="<?php echo $noIC; ?>" readonly>
+              <input type="" name="pemilik" class="form-control" value="<?php echo $namaPelajar; ?>" readonly>
             </div>
             <div class="form-group hid">
               <input type="submit" class="btn btn-primary" value="Hantar">

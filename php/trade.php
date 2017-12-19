@@ -1,7 +1,5 @@
 <?php
 session_start();
-echo $_SESSION['ic'];
-echo $_SESSION['email'];
 
 require_once '../php/connect.php';
 

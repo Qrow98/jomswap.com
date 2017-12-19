@@ -146,8 +146,8 @@ if (isset($_SESSION['email'])) {
       </div>
       <div class="row clearfix">
 <?php
-$sql = "SELECT *
-FROM barangan LEFT JOIN pelajar ON barangan.noIC = pelajar.noIC";
+$sql = "SELECT * FROM barangan 
+LEFT JOIN pelajar ON barangan.noIC = pelajar.noIC";
 
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {

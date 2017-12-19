@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 $ic = $_SESSION['ic'];
-$sql = "SELECT * FROM `barangan` WHERE noIC = '$ic'";
+$sql = "SELECT * FROM `barangan` WHERE noIC = '$ic' AND NOT statusBarangan = 'Diterima'";
 if ($result = mysqli_query($conn, $sql)) {
     if (mysqli_num_rows($result) > 0) {
         $options = "";

@@ -168,8 +168,8 @@ if ($result = mysqli_query($conn, $sql)) {
               <th>#</th>
               <th>BARANGAN ANDA</th>
               <th>BARANGAN YANG DITAWARKAN</th>
-              <th>TARIKH</th>
               <th>PEMILIK</th>
+              <th>TARIKH</th>              
               <th>STATUS</th>
               <th>TINDAKAN</th>
             </tr>
@@ -183,7 +183,7 @@ if ($result = mysqli_query($conn, $sql)) {
               <th scope='row'>" . $num . "</th>
               <td>
                 <div class='image'>
-                  <img src='" . $row[11] . "' class='img-responsive thumbnail' style='max-height:200px;'>
+                  <img src='" . $row[12] . "' class='img-responsive thumbnail' style='max-height:200px;'>
                 </div>
                 Nama: <b>" . $row[7] . "</b>                
               </td>
@@ -193,16 +193,16 @@ if ($result = mysqli_query($conn, $sql)) {
                 </div>
                 Nama: <b>" . $row['namaBarangan'] . "</b>                
               </td>
+              <td>" . $row['namaPelajar'] . "</td>              
               <td>" . $row['tarikhPertukaran'] . "</td>
-              <td>" . $row[25] . "</td>
               <td>" . $row['statusPertukaran'] . "</td>              
               <td>
-                <a href='item.php?idBarangan=" . $row[15] . "'>
+                <a href='item.php?idBarangan=" . $row['idBaranganRequester'] . "'>
                   <button class='btn btn-primary'>LIHAT</button>
                 </a>
                 <br>
                 <br>
-                <a href='../php/acceptitem.php?idPertukaran=" . $row['idPertukaran'] . "'>
+                <a href='../php/acceptitem.php?idPertukaran=" . $row['idPertukaran'] . "&idBaranganOwner=" . $row['idBaranganOwner'] . "&idBaranganRequester=" . $row['idBaranganRequester'] . "'>
                   <button class='btn btn-primary'>TERIMA</button>
                 </a>
                 <br>                
@@ -274,15 +274,15 @@ if ($result = mysqli_query($conn, $sql)) {
               </td>
               <td>
                 <div class='image'>
-                  <img src='" . $row[11] . "' class='img-responsive thumbnail' style='max-height:200px;'>
+                  <img src='" . $row[12] . "' class='img-responsive thumbnail' style='max-height:200px;'>
                 </div>
                 Nama: <b>" . $row[7] . "</b>                
               </td>
-              <td>" . $row[16] . "</td>              
+              <td>" . $row['namaPelajar'] . "</td>              
               <td>" . $row['tarikhPertukaran'] . "</td>
               <td>" . $row['statusPertukaran'] . "</td>              
               <td>
-                <a href='item.php?idBarangan=" . $row[6] . "'>
+                <a href='item.php?idBarangan=" . $row['idBaranganOwner'] . "'>
                   <button class='btn btn-primary'>LIHAT</button>
                 </a>";
             if ($row['statusPertukaran'] == 'Diterima') {

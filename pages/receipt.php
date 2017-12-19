@@ -42,12 +42,12 @@ if ($result = mysqli_query($conn, $sql)) {
             echo "
             ********** RESIT PERTUKARAN **********
             <br><br>
-            BARANGAN 1 = " . $row['namaBarangan'] . "<br>
-            PEMILIK = " . $nama . "<br>            
-            BARANGAN 2 = " . $row[7] . "<br>
-            PEMILIK = " . $row[16] . "<br>
-            TARIKH = " . $row['tarikhPertukaran'] . "<br>
-            STATUS = " . $row['statusPertukaran'] . "
+            BARANGAN 1 <span style='display:inline-block; width:180px;'></span> " . $row['namaBarangan'] . "<br>
+            PEMILIK <span style='display:inline-block; width:162px;'></span> " . $nama . "<br>            
+            BARANGAN 2 <span style='display:inline-block; width:180px;'></span> " . $row[7] . "<br>
+            PEMILIK <span style='display:inline-block; width:162px;'></span> " . $row[16] . "<br>
+            TARIKH <span style='display:inline-block; width:180px;'></span> " . $row['tarikhPertukaran'] . "<br>
+            STATUS <span style='display:inline-block; width:197px;'></span> " . $row['statusPertukaran'] . "
             <br><br>
             ********** RESIT PERTUKARAN **********
 

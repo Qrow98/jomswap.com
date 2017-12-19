@@ -26,10 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // tarikhLahir new
-    if (empty(trim($_POST["tarikh"]))) {
-        $tarikhError = "Sila isi tarikh lahir anda.";
+    if (empty(trim($_POST["date"]))) {
+        $dateError = "Sila isi tarikh lahir anda.";
     } else {
-        $tarikh = trim($_POST["tarikh"]);
+        $date = trim($_POST["date"]);
     }
 
     // Validate no telefon
@@ -46,34 +46,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $alamat = trim($_POST["alamat"]);
     }
 
-    // Validate negeri new
-    if (empty(trim($_POST["state"]))) {
-        $alamatError = "Sila masukkan Negeri anda.";
-    } else {
-        $alamat = trim($_POST["state"]);
-    }
-
     // Validate bandar new
     if (empty(trim($_POST["city"]))) {
-        $alamatError = "Sila masukkan Bandar anda.";
+        $cityError = "Sila masukkan Bandar anda.";
     } else {
-        $alamat = trim($_POST["city"]);
+        $city = trim($_POST["city"]);
     }
 
-    // Validate poskod new
+    // Validate poskod new validation 0 > x < 6
     if (empty(trim($_POST["postcode"]))) {
-        $alamatError = "Sila masukkan Poskod anda.";
+        $postcodeError = "Sila masukkan Poskod anda.";
     } else {
-        $alamat = trim($_POST["postcode"]);
+        $postcode = trim($_POST["postcode"]);
+    }
+
+    // Validate negeri new
+    if (empty(trim($_POST["state"]))) {
+        $stateError = "Sila masukkan Negeri anda.";
+    } else {
+        $state = trim($_POST["state"]);
     }
 
     // Profile picture
     include '../php/upload.php';
 
     // Check input errors before inserting in database
-    if (empty($namaError) && empty($genderError) && empty($noTelError) && empty($alamatError)) {
+    if (empty($namaError) && empty($genderError) && empty($dateError) && empty($noTelError)
+        && empty($alamatError) && empty($stateError) && empty($cityError) && empty($postcodeError)
+    ) {
         
-        $sql = "UPDATE pelajar SET namaPelajar = '$nama', jantina = '$gender', noTel = '$noTel', alamat = '$alamat', profilePicture = '$target_file' WHERE noIC = '$ic'";
+        $sql = "UPDATE pelajar SET namaPelajar = '$nama', jantina = '$gender', tarikhLahir = '$date', noTel = '$noTel', alamat = '$alamat', bandar = '$city', poskod = '$postcode', negeri = '$state', profilePicture = '$target_file' WHERE noIC = '$ic'";
 
         if (mysqli_query($conn, $sql)) {
             echo "<script>",
@@ -111,6 +113,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link href="../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
   <!-- Animation Css -->
   <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+  <!-- Bootstrap Select Css -->
+  <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
   <!-- Custom Css -->
   <link href="../css/style.css" rel="stylesheet">
 </head>
@@ -152,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <i class="material-icons">date_range</i>
             </span>
             <div class="form-line">
-              <input type="text" class="datepicker form-control" name="tarikh" placeholder="Birthday">
+              <input type="text" class="datepicker form-control" name="date" placeholder="Birthday" required>
             </div>
           </div>
 
@@ -171,9 +175,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <i class="material-icons">home</i>
             </span>
             <div class="form-line">
-              <textarea name="alamat" class="form-control" cols="15" rows="3" placeholder="Alamat"><?php echo $alamat; ?></textarea>
+              <input type="text" class="form-control" name="alamat" placeholder="Alamat" value="<?php echo $alamat; ?>">
             </div>
             <span class="help-block"><?php echo $alamatError; ?></span>
+          </div>
+
+          <div class="input-group <?php echo (!empty($cityError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">home</i>
+            </span>
+            <div class="form-line">
+              <input type="text" class="form-control" name="city" placeholder="Bandar" value="<?php echo $city; ?>">
+            </div>
+            <span class="help-block"><?php echo $cityError; ?></span>
+          </div>
+
+          <div class="input-group <?php echo (!empty($postcodeError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">home</i>
+            </span>
+            <div class="form-line">
+              <input type="number" class="form-control" name="postcode" placeholder="Poskod" value="<?php echo $postcode; ?>">
+            </div>
+            <span class="help-block"><?php echo $postcodeError; ?></span>
+          </div>
+
+          <div class="input-group <?php echo (!empty($stateError)) ? 'has-error' : ''; ?>">
+            <span class="input-group-addon">
+              <i class="material-icons">home</i>
+            </span>
+            <select name="state" class="form-control show-tick" required>
+              <option disabled selected value style="display:none">Negeri</option>
+              <option>Wilayah Persekutuan Kuala Lumpur</option>
+              <option>Wilayah Persekutuan Labuan</option>
+              <option>Wilayah Persekutuan Putrajaya</option>
+              <option>Johor</option>
+              <option>Kedah</option>
+              <option>Kelantan</option>
+              <option>Malacca</option>
+              <option>Negeri Sembilan</option>
+              <option>Pahang</option>
+              <option>Perak</option>
+              <option>Perlis</option>
+              <option>Penang</option>
+              <option>Sabah</option>
+              <option>Sarawak</option>
+              <option>Selangor</option>
+              <option>Terengganu</option>
+            </select>
+            <span class="help-block"><?php echo $stateError; ?></span>
           </div>
 
           <div class="input-group">
@@ -203,6 +253,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script src="../plugins/node-waves/waves.js"></script>
   <!-- Validation Plugin Js -->
   <script src="../plugins/jquery-validation/jquery.validate.js"></script>
+  <!-- Select Plugin Js -->
+  <script src="../plugins/bootstrap-select/js/bootstrap-select.js"></script>
   <!-- Custom Js -->
   <script src="../js/admin.js"></script>
   <script src="../js/pages/examples/sign-up.js"></script>

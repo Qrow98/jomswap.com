@@ -14,6 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate nama
     if (empty(trim($_POST["name"]))) {
         $namaError = "Sila masukkan Nama anda.";
+    } elseif (filter_var(trim($_POST["name"]), FILTER_VALIDATE_INT)) {
+        $namaError = "Sila masukkan Nama yang betul.";
     } else {
         $nama = trim($_POST["name"]);
     }
@@ -35,6 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate no telefon
     if (empty(trim($_POST["noTel"]))) {
         $noTelError = "Sila masukkan No. Telefon anda.";
+    } elseif (strlen(trim($_POST['noTel'])) > 11) {
+        $noTelError = "No. Telefon mesti tidak melebihi 11 huruf.";
+    } elseif (strlen(trim($_POST['noTel'])) < 10) {
+        $noTelError = "No. Telefon mesti tidak kurang dari 10 huruf.";
     } else {
         $noTel = trim($_POST["noTel"]);
     }
@@ -56,13 +62,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate poskod new validation 0 > x < 6
     if (empty(trim($_POST["postcode"]))) {
         $postcodeError = "Sila masukkan Poskod anda.";
+    } elseif (!filter_var(trim($_POST["postcode"]), FILTER_VALIDATE_INT)) {
+        $postcodeError = "Sila masukkan Poskod yang betul.";
+    } elseif (strlen(trim($_POST['postcode'])) > 5) {
+        $postcodeError = "Poskod mesti tidak melebihi 5 huruf.";
+    } elseif (strlen(trim($_POST['postcode'])) < 5) {
+        $postcodeError = "Poskod mesti tidak kurang dari 5 huruf.";
     } else {
         $postcode = trim($_POST["postcode"]);
     }
 
     // Validate negeri new
     if (empty(trim($_POST["state"]))) {
-        $stateError = "Sila masukkan Negeri anda.";
+        $stateError = "Sila pilih Negeri anda.";
     } else {
         $state = trim($_POST["state"]);
     }
@@ -144,9 +156,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="input-group-addon">
               <i class="material-icons">wc</i>
             </span>
-            <input type="radio" name="gender" id="male" class="with-gap" value="Lelaki">
+            <input type="radio" name="gender" id="male" class="with-gap" <?php if (isset($gender) && $gender=="Lelaki") echo "checked";?> value="Lelaki">
             <label for="male">Lelaki</label>
-            <input type="radio" name="gender" id="female" class="with-gap" value="Perempuan">
+            <input type="radio" name="gender" id="female" class="with-gap" <?php if (isset($gender) && $gender=="Perempuan") echo "checked";?> value="Perempuan">
             <label for="female" class="m-l-10">Perempuan</label>
             <span class="help-block"><?php echo $genderError;?></span>
           </div>
@@ -156,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <i class="material-icons">date_range</i>
             </span>
             <div class="form-line">
-              <input type="text" class="datepicker form-control" name="date" placeholder="Birthday" required>
+              <input type="text" class="datepicker form-control" name="date" placeholder="Birthday" value="<?php echo $date; ?>" required>
             </div>
           </div>
 
@@ -165,8 +177,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <i class="material-icons">phone_iphone</i>
             </span>
             <div class="form-line">
-              <input type="text" class="form-control" name="noTel" placeholder="Nombor Telefon" value="<?php echo $noTel; ?>">
+              <input type="number" class="form-control" name="noTel" placeholder="Nombor Telefon" value="<?php echo $noTel; ?>">
             </div>
+            <small>cth: 0123456789</small>
             <span class="help-block"><?php echo $noTelError; ?></span>
           </div>
 
@@ -204,8 +217,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="input-group-addon">
               <i class="material-icons">language</i>
             </span>
-            <select name="state" class="form-control show-tick" required>
-              <option disabled selected value style="display:none">Negeri</option>
+            <select name="state" class="form-control show-tick">
+              <option selected value="<?php if (isset($state)) echo $state;?>" style="display:none">
+                <?php
+                if (isset($state)) {
+                    echo $state;
+                } else {
+                    echo "Negeri";
+                }
+                ?>
+              </option>
               <option>Wilayah Persekutuan Kuala Lumpur</option>
               <option>Wilayah Persekutuan Labuan</option>
               <option>Wilayah Persekutuan Putrajaya</option>

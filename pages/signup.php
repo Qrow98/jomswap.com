@@ -44,6 +44,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate IC
     if (empty(trim($_POST["ic"]))) {
         $icError = "Sila masukkan IC anda.";
+    } elseif (!filter_var(trim($_POST["ic"]), FILTER_VALIDATE_INT)) {
+        $icError = "Sila masukkan IC yang betul.";
+    } elseif (strlen(trim($_POST['ic'])) > 12) {
+        $icError = "IC mesti tidak melebihi 12 huruf.";
+    } elseif (strlen(trim($_POST['ic'])) != 12) {
+        $icError = "Sila masukkan IC yang betul.";
     } else {
         // Prepare a select statement
         $sql = "SELECT * FROM pelajar WHERE noIC = ?";
@@ -181,7 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <i class="material-icons">lock</i>
             </span>
             <div class="form-line">
-              <input type="password" class="form-control" name="password" minlength="6" placeholder="Kata Laluan" value="<?php echo $password; ?>">
+              <input type="password" class="form-control" name="password" placeholder="Kata Laluan" value="<?php echo $password; ?>">
             </div>
             <span class="help-block"><?php echo $password_err; ?></span>
           </div>
@@ -191,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <i class="material-icons">lock</i>
             </span>
             <div class="form-line">
-              <input type="password" class="form-control" name="confirm_password" minlength="6" placeholder="Sahkan Kata Laluan" value="<?php echo $confirm_password; ?>">
+              <input type="password" class="form-control" name="confirm_password" placeholder="Sahkan Kata Laluan" value="<?php echo $confirm_password; ?>">
             </div>
             <span class="help-block"><?php echo $confirm_password_err; ?></span>
           </div>

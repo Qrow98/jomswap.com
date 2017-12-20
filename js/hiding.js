@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $("#btnEdit").click(function() {
         $("input[type='text']").removeAttr("readonly");
-        $("textarea").removeAttr("readonly");
+        $("number").removeAttr("readonly");
         $("select").removeAttr("disabled");
         jQuery(".hid").css("display","inline");
     });

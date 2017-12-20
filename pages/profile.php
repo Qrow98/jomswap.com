@@ -164,6 +164,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
   <!-- Animation Css -->
   <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+  <!-- Bootstrap Select Css -->
+  <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
   <!-- Custom Css -->
   <link href="../css/style.css" rel="stylesheet">
   <link href="../css/themes/all-themes.css" rel="stylesheet" />
@@ -297,19 +299,32 @@ if (isset($_SESSION['email'])) {
           </div>
           <div class="body">
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-            <div class="form-group upload hid">
+            <div class="input-group upload hid">
               <label>Gambar:</label>
               <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
             </div>
-            <div class="form-group">
-              <label>Email:</label>
-              <input type="" name="email" class="form-control" value="<?php echo $email; ?>" readonly>
+
+            <label>Email:</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="material-icons">email</i>
+              </span>
+              <div class="form-line">
+                <input type="email" class="form-control" name="email" placeholder="Email Address" value="<?php echo $email; ?>" readonly>
+              </div>
             </div>
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-              <label>Kata laluan:</label>
-              <input type="text" name="password" class="form-control" value="<?php echo $pwd; ?>" readonly="readonly">
+
+            <label>Kata laluan:</label>
+            <div class="input-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+              <span class="input-group-addon">
+                <i class="material-icons">lock</i>
+              </span>
+              <div class="form-line">
+                <input type="text" class="form-control" name="password" placeholder="Kata Laluan" value="<?php echo $pwd; ?>" readonly>
+              </div>
               <span class="help-block"><?php echo $password_err; ?></span>
             </div>
+
           </div>
         </div>
       </div>
@@ -320,50 +335,94 @@ if (isset($_SESSION['email'])) {
             <h2>Butiran Diri</h2>
           </div>
           <div class="body">
-              <div class="form-group hid <?php echo (!empty($namaError)) ? 'has-error' : ''; ?>">
-                <label>Nama:</label>
-                <input type="text" name="name" class="form-control" value="<?php echo $nama; ?>">
+          
+              <div class="input-group <?php echo (!empty($namaError)) ? 'has-error' : ''; ?> hid">
+              <label>Nama:</label>              
+                <div class="form-line">
+                  <input type="text" class="form-control" name="name" placeholder="Nama Penuh" value="<?php echo $nama; ?>" autofocus>
+                </div>
                 <span class="help-block"><?php echo $namaError; ?></span>
               </div>
 
-              <div class="form-group">
-                <label>No. IC:</label>
-                <input type="" name="ic" class="form-control" value="<?php echo $ic; ?>" readonly>
+              <label>No. IC:</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="material-icons">info</i>
+                </span>
+                <div class="form-line">
+                  <input type="" class="form-control" name="ic" placeholder="Nombor IC" value="<?php echo $ic; ?>" readonly>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label>Jantina:</label>
-                <input type="" name="jantina" class="form-control" value="<?php echo $jantina; ?>" readonly>
+              <label>Jantina:</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="material-icons">wc</i>
+                </span>
+                <div class="form-line">
+                  <input type="" class="form-control" name="jantina" placeholder="Jantina" value="<?php echo $jantina; ?>" readonly>
+                </div>
               </div>
 
-              <div class="form-group <?php echo (!empty($noTelError)) ? 'has-error' : ''; ?>">
-                <label>No. Telefon:</label>
-                <input type="text" name="noTel" class="form-control" value="<?php echo $noTel; ?>" readonly>
+              <label>No. Telefon:</label>
+              <div class="input-group <?php echo (!empty($noTelError)) ? 'has-error' : ''; ?>">
+                <span class="input-group-addon">
+                  <i class="material-icons">phone_iphone</i>
+                </span>
+                <div class="form-line">
+                  <input type="text" class="form-control" name="noTel" placeholder="Nombor Telefon" value="<?php echo $noTel; ?>" readonly>
+                </div>
                 <span class="help-block"><?php echo $noTelError; ?></span>
               </div>
 
-              <div class="form-group <?php echo (!empty($alamatError)) ? 'has-error' : ''; ?>">
-                <label>Alamat:</label>
-                <input type="text" name="alamat" class="form-control" value="<?php echo $alamat; ?>" readonly>
+              <label>Alamat:</label>
+              <div class="input-group <?php echo (!empty($alamatError)) ? 'has-error' : ''; ?>">              
+                <span class="input-group-addon">
+                  <i class="material-icons">home</i>
+                </span>
+                <div class="form-line">
+                  <input type="text" class="form-control" name="alamat" placeholder="Alamat" value="<?php echo $alamat; ?>" readonly>
+                </div>
                 <span class="help-block"><?php echo $alamatError; ?></span>
               </div>
 
-              <div class="form-group <?php echo (!empty($bandarError)) ? 'has-error' : ''; ?>">
-                <label>Bandar:</label>
-                <input type="text" name="bandar" class="form-control" value="<?php echo $bandar; ?>" readonly>
+              <label>Bandar:</label>
+              <div class="input-group <?php echo (!empty($bandarError)) ? 'has-error' : ''; ?>">
+                <span class="input-group-addon">
+                  <i class="material-icons">flight_takeoff</i>
+                </span>
+                <div class="form-line">
+                  <input type="text" class="form-control" name="city" placeholder="Bandar" value="<?php echo $bandar; ?>" readonly>
+                </div>
                 <span class="help-block"><?php echo $bandarError; ?></span>
               </div>
 
-              <div class="form-group <?php echo (!empty($poskodError)) ? 'has-error' : ''; ?>">
-                <label>Poskod:</label>
-                <input type="text" name="poskod" class="form-control" value="<?php echo $poskod; ?>" readonly>
+              <label>Poskod:</label>
+              <div class="input-group <?php echo (!empty($poskodError)) ? 'has-error' : ''; ?>">
+                <span class="input-group-addon">
+                  <i class="material-icons">code</i>
+                </span>
+                <div class="form-line">
+                  <input type="text" class="form-control" name="postcode" placeholder="Poskod" value="<?php echo $poskod; ?>" readonly>
+                </div>
                 <span class="help-block"><?php echo $poskodError; ?></span>
               </div>
 
-              <div class="form-group <?php echo (!empty($negeriError)) ? 'has-error' : ''; ?>">
-                <label>Negeri:</label>
-                <select name="negeri" class="form-control show-tick" required disabled>
-                  <option disabled selected value="<?php echo $negeri; ?>" style="display:none"><?php echo $negeri; ?></option>
+              <label>Negeri:</label>
+              <div class="input-group <?php echo (!empty($negeriError)) ? 'has-error' : ''; ?>">
+                <span class="input-group-addon">
+                  <i class="material-icons">language</i>
+                </span>
+                <select name="state" class="form-control show-tick">
+                  <option selected value="<?php if (isset($negeri)) echo $negeri;?>" style="display:none">
+                    <?php
+                    if (isset($negeri)) {
+                        echo $negeri;
+                    } else {
+                        echo "Negeri";
+                    }
+                    ?>
+                  </option>
                   <option>Wilayah Persekutuan Kuala Lumpur</option>
                   <option>Wilayah Persekutuan Labuan</option>
                   <option>Wilayah Persekutuan Putrajaya</option>
@@ -384,10 +443,16 @@ if (isset($_SESSION['email'])) {
                 <span class="help-block"><?php echo $negeriError; ?></span>
               </div>
 
-              <div class="form-group">
-                <label>Tarikh Daftar:</label>
-                <input type="date" class="form-control" value="<?php echo $tarikhDaftar; ?>" readonly>
-              </div>              
+              <label>Tarikh Daftar:</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="material-icons">date_range</i>
+                </span>
+                <div class="form-line">
+                  <input type="" class="form-control" name="tarikh" placeholder="Tarikh Daftar" value="<?php echo $tarikhDaftar; ?>" readonly>
+                </div>
+                <span class="help-block"><?php echo $poskodError; ?></span>
+              </div>     
 
               <div class="form-group hid">
                 <input type="submit" class="btn btn-primary" value="Hantar">
@@ -416,6 +481,7 @@ if (isset($_SESSION['email'])) {
   <!-- Custom Js -->
   <script src="../js/admin.js"></script>
   <script src="../js/pages/index.js"></script>
+  <script src="../js/pages/examples/sign-up.js"></script>
   <!-- Demo Js -->
   <script src="../js/demo.js"></script>
 </body>

@@ -13,6 +13,9 @@ if (isset($_SESSION['ic'])) {
                 $jantina = $row['jantina'];
                 $noTel = $row['noTel'];
                 $alamat = $row['alamat'];
+                $bandar = $row['bandar'];
+                $poskod = $row['poskod'];
+                $negeri = $row['negeri'];
                 $tarikhDaftar = $row['tarikhDaftar'];
                 $pic = $row['profilePicture'];
             }
@@ -40,7 +43,7 @@ if (isset($_SESSION['ic'])) {
 
 // Define variables and initialize with empty values
 // $nama = $noTel = $alamat = "";
-$noTelError = $alamatError = $password_err = "";
+$namaError = $noTelError = $alamatError = $bandarError = $poskodError = $negeriError = $password_err = "";
  
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -66,6 +69,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $alamat = trim($_POST["alamat"]);
     }
 
+    // Validate bandar
+    if (empty(trim($_POST["bandar"]))) {
+        $bandarError = "Sila masukkan Bandar anda.";
+    } else {
+        $bandar = trim($_POST["bandar"]);
+    }
+
+    // Validate poskod
+    if (empty(trim($_POST["poskod"]))) {
+        $poskodError = "Sila masukkan Poskod anda.";
+    } else {
+        $poskod = trim($_POST["poskod"]);
+    }
+
+    // Validate negeri
+    if (empty(trim($_POST["negeri"]))) {
+        $negeriError = "Sila masukkan Negeri anda.";
+    } else {
+        $negeri = trim($_POST["negeri"]);
+    }
+
     // Validate password
     if (empty(trim($_POST['password']))) {
         $password_err = "Sila masukkan kata laluan anda.";
@@ -79,9 +103,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include '../php/upload.php';
 
     // Check input errors before inserting in database
-    if (empty($namaError) && $uploadOk == 1 && empty($noTelError) && empty($alamatError) && empty($password_err)) {
+    if (empty($namaError) && $uploadOk == 1 && empty($noTelError) && empty($alamatError) && empty($password_err) && empty($bandarError) && empty($poskodError) && empty($negeriError)) {
         
-        $sql = "UPDATE pelajar SET namaPelajar = '$nama', noTel = '$noTel', alamat = '$alamat', profilePicture = '$target_file' WHERE noIC = $ic";
+        $sql = "UPDATE pelajar SET namaPelajar = '$nama', noTel = '$noTel', alamat = '$alamat', bandar = '$bandar', poskod = '$poskod', negeri = '$negeri', profilePicture = '$target_file' WHERE noIC = $ic";
 
         if (mysqli_query($conn, $sql)) {
             $sql = "UPDATE logMasuk SET password = '$password' WHERE email = '$email'";
@@ -97,9 +121,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<br>";
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);            
         }
-    } elseif (empty($namaError) && empty($noTelError) && empty($alamatError) && empty($password_err)) {
+    } elseif (empty($namaError) && empty($noTelError) && empty($alamatError) && empty($password_err) && empty($bandarError) && empty($poskodError) && empty($negeriError)) {
         
-        $sql = "UPDATE pelajar SET namaPelajar = '$nama', noTel = '$noTel', alamat = '$alamat' WHERE noIC = $ic";
+        $sql = "UPDATE pelajar SET namaPelajar = '$nama', noTel = '$noTel', alamat = '$alamat', bandar = '$bandar', poskod = '$poskod', negeri = '$negeri' WHERE noIC = $ic";
         
         if (mysqli_query($conn, $sql)) {
             $sql = "UPDATE logMasuk SET password = '$password' WHERE email = '$email'";
@@ -320,8 +344,44 @@ if (isset($_SESSION['email'])) {
 
               <div class="form-group <?php echo (!empty($alamatError)) ? 'has-error' : ''; ?>">
                 <label>Alamat:</label>
-                <textarea name="alamat" class="form-control" cols="15" rows="3" readonly><?php echo $alamat; ?></textarea>
+                <input type="text" name="alamat" class="form-control" value="<?php echo $alamat; ?>" readonly>
                 <span class="help-block"><?php echo $alamatError; ?></span>
+              </div>
+
+              <div class="form-group <?php echo (!empty($bandarError)) ? 'has-error' : ''; ?>">
+                <label>Bandar:</label>
+                <input type="text" name="bandar" class="form-control" value="<?php echo $bandar; ?>" readonly>
+                <span class="help-block"><?php echo $bandarError; ?></span>
+              </div>
+
+              <div class="form-group <?php echo (!empty($poskodError)) ? 'has-error' : ''; ?>">
+                <label>Poskod:</label>
+                <input type="text" name="poskod" class="form-control" value="<?php echo $poskod; ?>" readonly>
+                <span class="help-block"><?php echo $poskodError; ?></span>
+              </div>
+
+              <div class="form-group <?php echo (!empty($negeriError)) ? 'has-error' : ''; ?>">
+                <label>Negeri:</label>
+                <select name="negeri" class="form-control show-tick" required disabled>
+                  <option disabled selected value="<?php echo $negeri; ?>" style="display:none"><?php echo $negeri; ?></option>
+                  <option>Wilayah Persekutuan Kuala Lumpur</option>
+                  <option>Wilayah Persekutuan Labuan</option>
+                  <option>Wilayah Persekutuan Putrajaya</option>
+                  <option>Johor</option>
+                  <option>Kedah</option>
+                  <option>Kelantan</option>
+                  <option>Malacca</option>
+                  <option>Negeri Sembilan</option>
+                  <option>Pahang</option>
+                  <option>Perak</option>
+                  <option>Perlis</option>
+                  <option>Penang</option>
+                  <option>Sabah</option>
+                  <option>Sarawak</option>
+                  <option>Selangor</option>
+                  <option>Terengganu</option>
+                </select>
+                <span class="help-block"><?php echo $negeriError; ?></span>
               </div>
 
               <div class="form-group">

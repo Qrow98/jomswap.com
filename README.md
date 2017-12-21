@@ -1,4 +1,4 @@
 # jomswap.com
 
-Template taken form
+Template taken from
 https://github.com/gurayyarar/AdminBSBMaterialDesign
